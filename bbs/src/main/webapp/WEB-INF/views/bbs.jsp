@@ -1,3 +1,4 @@
+<%@page import="web.bbs.domain.Nav"%>
 <%@page import="web.bbs.repository.bbs.BbsHashMapRepository"%>
 <%@page import="web.bbs.repository.member.MemberHashMapRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,6 +19,12 @@
 <body>
 
 
+<%
+	request.setAttribute("bbsUri",Nav.BBS_NAV);	
+	request.setAttribute("loginUri", Nav.LOGNIN_NAV);
+	request.setAttribute("signUpUri", Nav.SIGNUP_NAV);
+%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
  <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +37,7 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/home/bbs">BBS</a>
+        <a class="nav-link" href="${bbsUri}">BBS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">about</a>
@@ -42,8 +49,8 @@
           List
         </a>
         <div class="dropdown-menu ">
-          <a class="dropdown-item" href="#">LogIn</a>
-          <a class="dropdown-item" href="#">Join</a>          
+          <a class="dropdown-item" href="${loginUri}">LogIn</a>
+          <a class="dropdown-item" href="${signUpUri}">Join</a>          
         </div>
       </li>
     </ul>

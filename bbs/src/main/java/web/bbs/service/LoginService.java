@@ -1,5 +1,7 @@
 package web.bbs.service;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.Member;
+import web.bbs.domain.SessionConst;
 import web.bbs.repository.member.MemberRepository;
 
 @Service
@@ -27,10 +30,9 @@ public class LoginService {
 			return false;
 		}
 		
-		
+		Member passedMember = memberRepository.findByLoginId(findedMember.getUserId()).filter(x->x.getPassword().equals(member.getPassword())).orElse(null);		
 		HttpSession session = request.getSession(true);
-		session.setAttribute("member", session);
-		
+		session.setAttribute(SessionConst.Login_session, passedMember);		
 		return true;
 		
 	}

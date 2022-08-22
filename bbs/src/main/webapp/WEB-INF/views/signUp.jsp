@@ -1,7 +1,7 @@
 <%@page import="web.bbs.domain.Nav"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +10,10 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>Sign up Window</title>
 </head>
 <body>
+
 
 <%
 	request.setAttribute("bbsUri",Nav.BBS_NAV);	
@@ -51,13 +52,40 @@
     </ul>
   </div>
 </nav>
-	<div>
-		<c:if test= "${check}">			
-			<scirpt>
-				window.alert("회원가입을 축하드립니다.");
-			</scirpt>
-		</c:if>
+
+<form:form action="/home/signUp/form" method="Post" modelAttribute="member">
+	<div class="form-group">
+		<form:label path="name">Name : </form:label><form:input class= "form-control" path="name"/>
+		<form:errors path="name" cssStyle="color:red"/>		
 	</div>
+	<div class="form-group">	
+		<form:label path="age">Age : </form:label><form:input class="form-control" path="age"/>
+		<form:errors path="age" cssStyle="color:red"/>
+	</div>
+	<div class="form-group">
+		<form:label path="userId">ID : </form:label><form:input class="form-control" path="userId"/>
+		<form:errors path="userId" cssStyle="color:red"/>
+	</div>	
+	<div class="from-group">
+		<form:label path="password">password : </form:label><form:password path="password" class="form-control"/>
+		<form:errors path="password" cssStyle="color:red" />
+	</div>
+	
+	<div class="form-group">
+		<form:label path="email">E-mail : </form:label><form:input path="email" class="form-control"></form:input>
+		<form:errors path="email" cssStyle="color:red"/>
+	</div>
+	<div>
+		<form:button class="btn btn-primary float-right">확인</form:button>
+	</div>
+</form:form>
+
+
+
+
+
+
+
 
 </body>
 </html>

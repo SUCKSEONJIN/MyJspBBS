@@ -3,6 +3,7 @@ package web.bbs.repository.member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Controller;
@@ -38,12 +39,6 @@ public class MemberHashMapRepository implements MemberRepository{
 	}
 
 	@Override
-	public Member findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Member> findAll() {
 		return new ArrayList<>(repository.values());
 	}
@@ -74,12 +69,14 @@ public class MemberHashMapRepository implements MemberRepository{
 		repository.remove(id);
 		
 	}
+	
+	
 
 	@Override
-	public void clear(String name) {
-		// TODO Auto-generated method stub
-		
+	public Optional<Member> findByLoginId(String LoginId) {
+		return findAll().stream().filter(m->m.getUserId().equals(LoginId)).findFirst();
 	}
+
 
 	@Override
 	public void clearAll() {

@@ -24,7 +24,11 @@ public class BbsService {
 	}
 	
 	public List<BbsData> BbsView() {
-		 return BbsRepository.findAll();		 
+		return BbsRepository.findAll();	
 	}	
+	
+	
+	
+	
 	
 }
