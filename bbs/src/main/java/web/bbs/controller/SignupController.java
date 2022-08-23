@@ -1,5 +1,6 @@
 package web.bbs.controller;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,22 @@ import web.bbs.repository.member.MemberRepository;
 @RequiredArgsConstructor
 @RequestMapping(value="/home/signUp")
 public class SignupController {
+	
 	private final MemberRepository memberRepository;
+	
+	@PostConstruct
+	public void example() {
+		Member member = new Member();
+		member.setName("석선진");
+		member.setAge(30);
+		member.setEmail("wlq862@naver.com");
+		member.setPassword("123123123");
+		member.setUserId("spring1");
+		memberRepository.save(member);
+		
+		Member member1 = new Member("석후진",30,"wlq123@naver.com","123123123","spring2");
+		memberRepository.save(member1);
+	}
 	
 	@GetMapping("/form")
 	public String signUp_form(Model model) {
