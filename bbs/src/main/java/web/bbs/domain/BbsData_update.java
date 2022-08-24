@@ -11,8 +11,8 @@ import lombok.Setter;
 public class BbsData_update {
 	
 	private String author;
-	private String Time;
-	private String Text;
+	private String time;
+	private String text;
 	
 	
 }

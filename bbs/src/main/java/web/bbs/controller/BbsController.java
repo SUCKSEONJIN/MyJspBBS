@@ -29,6 +29,8 @@ public class BbsController {
 	@RequestMapping
 	public String viewBbs(@ModelAttribute("member") Member member, Model model){		
 		List<BbsData> bbsDatas = bbsService.BbsView();
+		model.addAttribute("member",member);
+		log.info("viewBbs member.getName={}", member.getName());
 		model.addAttribute("bbsDatas", bbsDatas);		
 		return "bbs";
 	}
@@ -36,6 +38,8 @@ public class BbsController {
 	@GetMapping("/write")
 	public String inputBbs(@ModelAttribute("bbsData") BbsData bbsData, @ModelAttribute("member") Member member,
 			Model model) {
+		model.addAttribute("member",member);
+		log.info("member={}", member);
 		model.addAttribute("bbsData", new BbsData());
 		return "bbsInputForm";
 	}

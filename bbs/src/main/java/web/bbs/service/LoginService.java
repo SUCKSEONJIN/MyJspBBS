@@ -28,7 +28,8 @@ public class LoginService {
 			return passedMember;
 		}
 		HttpSession session = request.getSession(true);			
-		session.setAttribute(SessionConst.Login_session, passedMember);		
+		session.setAttribute(SessionConst.Login_session, passedMember);
+		log.info("session.attribute ={}" , session.getAttribute(SessionConst.Login_session));
 		return passedMember;
 		
 	}

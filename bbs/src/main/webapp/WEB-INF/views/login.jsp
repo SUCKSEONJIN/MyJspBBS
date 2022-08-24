@@ -52,7 +52,7 @@
 </nav>
 
 <div class= container>
-<form:form action="/home/login/form" modelAttribute="member" method="Post">
+<form:form action="/home/login/form?${url}" modelAttribute="member" method="Post">
  <div class="row justify-content-center mt-5">
  <div class= "border col-md-6 p-4" >
  	<div class="text-center mb-3">
@@ -71,12 +71,13 @@
 			<td><form:errors path="password" cssStyle="color:red" /></td>
 		</tr>
 	</table>
+
 		<div>
 			<form:button class="btn btn-primary float-right mt-4">submit</form:button></td>			
 		</div>
 	
 	</div>
-	</div>
+	</div>	
 </form:form>	
 </div>			
 		

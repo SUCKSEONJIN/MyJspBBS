@@ -1,5 +1,6 @@
 package web.bbs;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -60,5 +61,13 @@ public class test {
 		assertTrue(date.getClass()==String.class);
 		
 		
+	}
+	@Test
+	public void stringValue() {
+		String str = "/home/login/form?redirectURL=/bbs/bbs";
+		
+		int index = str.indexOf("=");
+		String result = str.substring(index+1);
+		assertThat(result).isEqualTo("/bbs/bbs");
 	}
 }

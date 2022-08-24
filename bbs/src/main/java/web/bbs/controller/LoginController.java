@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,11 @@ public class LoginController {
 	private final LoginService loginService;
 	
 	@GetMapping("/form")
-	public String loginform(@ModelAttribute("member") MemberLoginDTO member, Model model) {
-		model.addAttribute("member", new Member());		
+	public String loginform(@ModelAttribute("member") MemberLoginDTO member, Model model, HttpServletRequest request) {
+		model.addAttribute("member", new MemberLoginDTO());
+		StringBuffer requestURL = request.getRequestURL();
+		String queryString = request.getQueryString();								
+		model.addAttribute("url",queryString);
 		return "login"; 
 	}
 	
@@ -53,10 +57,20 @@ public class LoginController {
 		
 		log.info("session값 = {}", request.getSession());
 		log.info("after loginservice");
+		
 		alert = true;
 		redirect.addFlashAttribute("check", alert);
-		redirect.addFlashAttribute("member",passedMember);
-		return "redirect:/";
+		redirect.addFlashAttribute("member1",passedMember);
+				
+		
+		String url = request.getQueryString();
+		int index = url.indexOf("=");
+		String subString = url.substring(index +1);
+		
+		if(url != null) {
+			return "redirect:" + subString;
+		}	
+		return "redirect:/";					
 	}
 	
 

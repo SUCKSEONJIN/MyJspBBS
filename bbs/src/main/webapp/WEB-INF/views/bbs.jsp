@@ -18,19 +18,21 @@
 </head>
 <body>
 
-
 <%
+	request.setAttribute("logOutUri",Nav.LOGOUT_NAV);
 	request.setAttribute("bbsUri",Nav.BBS_NAV);	
 	request.setAttribute("loginUri", Nav.LOGNIN_NAV);
 	request.setAttribute("signUpUri", Nav.SIGNUP_NAV);
+
+	
 %>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
- <a class="navbar-brand" href="#">Navbar</a>
+ <a class="navbar-brand mr-auto" href="#">Navbar</a>
   <button class="navbar-toggler type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>  
-  
+
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav" >
       <li class="nav-item active">
@@ -43,19 +45,48 @@
         <a class="nav-link" href="#">about</a>
       </li>
      </ul>
-     <ul class="navbar-nav ml-auto">
+     <ul class="navbar-nav ml-auto">    
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle ml-auto" href="#" role="button" data-toggle="dropdown" aria-expanded="true">
           List
-        </a>
+        </a>        
         <div class="dropdown-menu ">
-          <a class="dropdown-item" href="${loginUri}">LogIn</a>
-          <a class="dropdown-item" href="${signUpUri}">Join</a>          
-        </div>
-      </li>
+        	<c:if test="${sess == null}">
+	          <a class="dropdown-item" href="${loginUri}">LogIn</a>
+	          <a class="dropdown-item" href="${signUpUri}">Join</a>
+	        </c:if>
+	        <c:if test="${sess != null}">
+	        	<button class="dropdown-item" onclick="getAlert()">LogOut</button>
+	        </c:if>
+	                  
+        </div>       
+      </li>     
     </ul>
   </div>
+  
+ <c:if test="${sess != null}">${member.userId}님</c:if>
 </nav>
+	
+	<c:if test="${check}">
+		<script>
+			alert("로그인 성공")
+		</script>
+	</c:if>
+		
+
+		<script>
+		function getAlert(){			
+			var str;
+			if(confirm("정말 로그아웃을 하시겠습니까?") == true){
+				window.location.href="/home/logOut";
+			}else{
+				
+			}
+			 }
+		</script>
+
+			
+	
 <div class="container">
 	<div class="row">
 	<table  class="table table-striped table-hover mx-auto mt-5">
