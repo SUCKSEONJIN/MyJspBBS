@@ -101,15 +101,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<c:forEach items="${bbsDatas}" var="bbsData">
+			<c:forEach items="${bbsDatas}" var="bbsData">
+			 <tr>
 				<td>${bbsData.id}</td>
-				<td>${bbsData.title}<td>
+				<td>${bbsData.title}</td>
 				<td>${bbsData.author}</td>
 				<td>${bbsData.time}</td>
 				<td>${bbsData.good}</td>					
-				</c:forEach>				
-			</tr>
+			 </tr>
+			</c:forEach>				
 			
 		
 			

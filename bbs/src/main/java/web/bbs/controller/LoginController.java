@@ -34,8 +34,16 @@ public class LoginController {
 	public String loginform(@ModelAttribute("member") MemberLoginDTO member, Model model, HttpServletRequest request) {
 		model.addAttribute("member", new MemberLoginDTO());
 		StringBuffer requestURL = request.getRequestURL();
-		String queryString = request.getQueryString();								
-		model.addAttribute("url",queryString);
+		String queryString = request.getQueryString();
+		
+		if(queryString != null) {
+			int index = queryString.indexOf("=");
+			String substring = queryString.substring(index+2);		
+			log.info("subString = {}",substring);
+			model.addAttribute("url",substring);								
+		}else {
+			model.addAttribute("url",queryString);
+		}
 		return "login"; 
 	}
 	
@@ -63,14 +71,14 @@ public class LoginController {
 		redirect.addFlashAttribute("member1",passedMember);
 				
 		
-		String url = request.getQueryString();
+		String url = request.getQueryString();		
 		int index = url.indexOf("=");
 		String subString = url.substring(index +1);
+		log.info("url2 ={} , subString={}",url,subString);
+		if(url != null) {return "redirect:/" + subString;}
 		
-		if(url != null) {
-			return "redirect:" + subString;
-		}	
-		return "redirect:/";					
+		return "redirect:/";
+		
 	}
 	
 

@@ -1,16 +1,29 @@
 package web.bbs;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Map;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+
+import static org.hamcrest.Matchers.containsString;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -70,4 +83,40 @@ public class test {
 		String result = str.substring(index+1);
 		assertThat(result).isEqualTo("/bbs/bbs");
 	}
+	
+	@Test
+	public void whenSerializingUsingJsonAnyGetter_thenCorrect()
+	throws JsonProcessingException{
+		ExtendableBean bean = new ExtendableBean("My bean");
+		bean.add("attr1", "val1");
+		bean.add("attr2", "val2");
+		
+		
+		String result = new ObjectMapper().writeValueAsString(bean);
+		
+		assertThat(result, containsString("attr1"));
+		assertThat(result,containsString("val1"));
+		
+	}
+	
+	@Test
+	public void WhenDeserializingUsingJsonCreator_thenCorrect() throws IOException{			
+		String json = "{\"id\":1,\"theName\":\"My bean\"}";		
+		BeanWithCreator bean = new ObjectMapper().readerFor(BeanWithCreator.class).readValue(json);
+		assertEquals("My bean", bean.name);					
+	}
+	
+	@Test
+	public void whenDeserializingUsingJsonAnySetter_thenCorrect() throws JsonMappingException, JsonProcessingException {
+		String json = "{\"name\":\"My bean\",\"attr\":\"val1\"}";
+		ExtendableBean bean = new ObjectMapper().readerFor(ExtendableBean.class).readValue(json);
+		
+		assertEquals("My bean", bean.name);
+		assertEquals("val2",bean.getProperties().get("attr2"));
+	}
+
+	
 }
+
+
+

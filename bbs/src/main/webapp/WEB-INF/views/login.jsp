@@ -52,7 +52,7 @@
 </nav>
 
 <div class= container>
-<form:form action="/home/login/form?${url}" modelAttribute="member" method="Post">
+<form:form action="/home/login/form?url=${url}" modelAttribute="member" method="Post">
  <div class="row justify-content-center mt-5">
  <div class= "border col-md-6 p-4" >
  	<div class="text-center mb-3">

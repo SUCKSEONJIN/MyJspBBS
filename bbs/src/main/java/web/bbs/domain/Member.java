@@ -1,5 +1,6 @@
 package web.bbs.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -34,9 +35,8 @@ public class Member {
 	@NotBlank
 	@Length(min=8, max=15, message = "비번은 8~15자리수로 입력해주세요")
 	private String password;
-	
-	
-	private List<BbsData> texts;
+		
+	private List<Long> bbsDataId;
 	
 	public Member(String name, Integer age, String eamil, String password, String userId) {
 		this.name = name;

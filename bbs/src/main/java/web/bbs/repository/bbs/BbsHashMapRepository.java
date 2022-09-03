@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Repository;
@@ -21,14 +22,21 @@ public class BbsHashMapRepository implements BbsRepository {
 	private static Long sequence = 0L;
 	
 	@Override
-	public void save(BbsData data) {
+	public Long save(BbsData data) {
 		if(data.getAuthor() == null) {
-			return;
+			return null;
 		}
 		data.setId(++sequence);
 		data.setTime(createTime());
 		repository.put(data.getId(), data);
 		log.info("repository : {}",repository.get(data.getId()));
+		return data.getId();
+	}
+
+	@Override
+	public Optional<BbsData> findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

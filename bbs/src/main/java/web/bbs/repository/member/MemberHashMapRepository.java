@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Controller;
 
 import web.bbs.domain.Member;
+import web.bbs.domain.MemberUpdateDTO;
 
 
 @Controller
@@ -34,8 +35,8 @@ public class MemberHashMapRepository implements MemberRepository{
 	}
 
 	@Override
-	public Member findById(Long id) {		
-		return repository.get(id);
+	public Optional<Member> findById(Long id) {		
+		return Optional.of(repository.get(id));
 	}
 
 	@Override
@@ -44,15 +45,9 @@ public class MemberHashMapRepository implements MemberRepository{
 	}
 
 	@Override
-	public Member update(Long id, Member member) {
+	public void update(Long id, MemberUpdateDTO member) {
 		Member findedMember = repository.get(id);		
-		if(member.getName() != null) {
-			findedMember.setName(member.getName());
-		}
-		if(member.getAge() != 0) {
-			findedMember.setAge(member.getAge());
-		}
-		
+	
 		if(member.getEmail() != null) {
 			findedMember.setEmail(member.getEmail());
 		}
@@ -61,7 +56,7 @@ public class MemberHashMapRepository implements MemberRepository{
 			findedMember.setPassword(member.getPassword());
 		}
 		
-		return member;		
+				
 	}
 
 	@Override

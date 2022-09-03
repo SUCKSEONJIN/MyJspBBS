@@ -2,6 +2,9 @@ package web.bbs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +29,10 @@ public class BbsController {
 	private final BbsService bbsService;
 	
 
+
 	@RequestMapping
-	public String viewBbs(@ModelAttribute("member") Member member, Model model){		
+	public String viewBbs(HttpServletRequest request, Model model){		
+		Member member = (Member)request.getAttribute("member");
 		List<BbsData> bbsDatas = bbsService.BbsView();
 		model.addAttribute("member",member);
 		log.info("viewBbs member.getName={}", member.getName());
@@ -36,17 +41,18 @@ public class BbsController {
 	}
 	
 	@GetMapping("/write")
-	public String inputBbs(@ModelAttribute("bbsData") BbsData bbsData, @ModelAttribute("member") Member member,
+	public String inputBbs(@ModelAttribute("bbsData") BbsData bbsData, HttpServletRequest request, 
 			Model model) {
+		Member member = (Member) request.getAttribute("member");
 		model.addAttribute("member",member);
-		log.info("member={}", member);
+		log.info("member.getName()={}", member.getName());
 		model.addAttribute("bbsData", new BbsData());
 		return "bbsInputForm";
 	}
 
 	@PostMapping("/write")
-	public String inputBbs_logic(@ModelAttribute("bbsData") BbsData bbsData) {
-		bbsService.bbsSave(bbsData);		
+	public String inputBbs_logic(@ModelAttribute("bbsData") BbsData bbsData,HttpServletRequest request) {
+		bbsService.bbsSave(bbsData,request);		
 		return "redirect:/home/bbs";
 	}
 	
