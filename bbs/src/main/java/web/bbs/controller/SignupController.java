@@ -51,12 +51,11 @@ public class SignupController {
 		member.setEmail("wlq862@naver.com");
 		member.setPassword("123123123");
 		member.setUserId("spring1");
-		member.setBbsDataId(new ArrayList<>());
+		
 		
 		memberRepository.save(member);
 		
-		Member member1 = new Member("석후진",30,"wlq123@naver.com","123123123","spring2");
-		member1.setBbsDataId(new ArrayList<>());
+		Member member1 = new Member("석후진",30,"wlq123@naver.com","123123123","spring2");		
 		memberRepository.save(member1);
 	}
 	

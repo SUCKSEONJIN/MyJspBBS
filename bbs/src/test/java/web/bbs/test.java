@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
@@ -93,7 +94,7 @@ public class test {
 		
 		
 		String result = new ObjectMapper().writeValueAsString(bean);
-		
+		log.info("result = {}", result);
 		assertThat(result, containsString("attr1"));
 		assertThat(result,containsString("val1"));
 		
@@ -112,10 +113,26 @@ public class test {
 		ExtendableBean bean = new ObjectMapper().readerFor(ExtendableBean.class).readValue(json);
 		
 		assertEquals("My bean", bean.name);
-		assertEquals("val2",bean.getProperties().get("attr2"));
+		assertEquals("val1",bean.getProperties().get("attr"));
 	}
 
-	
+	@Test
+	public void unserializingJsonToJava() {
+		String json = "{\"name\":\"My bean\",\"attr\":\"val1\"}";
+		ExtendableBean java = new ExtendableBean();
+		java.add("name", "My bean");
+		java.add("attr", "val1");
+		java.getProperties();
+		
+		log.info("결과 괍 : {} ", java.getProperties());
+		
+	}
+	@Test
+	public void mapInfo() {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", "My bean");
+		log.info("결과 값2 : {}", map);
+	}
 }
 
 

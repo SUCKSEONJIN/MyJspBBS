@@ -34,8 +34,7 @@ public class BbsService {
 		BbsData bbsData = bbsData_o.orElse(null);
 		if(bbsData != null) {
 			bbsData.getId();
-			Member member = (Member)request.getAttribute("member");
-			member.getBbsDataId().add(dataId);
+			Member member = (Member)request.getAttribute("member");			
 		}
 		
 

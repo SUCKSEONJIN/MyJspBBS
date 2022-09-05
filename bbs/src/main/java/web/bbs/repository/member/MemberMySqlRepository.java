@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,18 +41,16 @@ public class MemberMySqlRepository implements MemberRepository{
 	}
 	
 	@Override
-	public Member save(Member member) {
-		
-		
-		String sql = "insert into members(name, email, password, age, userId, bbsDataId)"
-				+ "values(:name,:email,:password,:age,:userId,:bbsDataId)";
+	public Member save(Member member)  {
+				
+		String sql = "insert into members(name, email, password, age, userId)"
+				+ "values(:name,:email,:password,:age,:userId)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		template.update(sql, param, keyHolder);
-		
-		
 		long key = keyHolder.getKey().longValue();
 		member.setId(key);
+		
 		return member;
 			
 		
