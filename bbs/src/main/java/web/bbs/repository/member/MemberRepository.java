@@ -9,7 +9,7 @@ import web.bbs.domain.MemberUpdateDTO;
 
 
 public interface MemberRepository {
-	public Member save(Member member) throws SQLIntegrityConstraintViolationException;
+	public Member save(Member member);
 	public Optional<Member> findById(Long id);	
 	public Optional<Member> findByLoginId(String id);
 	public List<Member> findAll();

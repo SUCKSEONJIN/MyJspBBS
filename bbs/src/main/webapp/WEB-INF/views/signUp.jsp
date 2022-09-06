@@ -1,3 +1,4 @@
+<%@page import="web.bbs.domain.Member"%>
 <%@page import="web.bbs.domain.Nav"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -18,7 +19,7 @@
 <%
 	request.setAttribute("bbsUri",Nav.BBS_NAV);	
 	request.setAttribute("loginUri", Nav.LOGNIN_NAV);
-	request.setAttribute("signUpUri", Nav.SIGNUP_NAV);
+	request.setAttribute("signUpUri", Nav.SIGNUP_NAV);	
 %>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -65,6 +66,7 @@
 	<div class="form-group">
 		<form:label path="userId">ID : </form:label><form:input class="form-control" path="userId"/>
 		<form:errors path="userId" cssStyle="color:red"/>
+		<button class="btn" onclick="duplicatedWindow()" />
 	</div>	
 	<div class="from-group">
 		<form:label path="password">password : </form:label><form:password path="password" class="form-control"/>
@@ -81,7 +83,12 @@
 </form:form>
 
 
-
+<script>
+	function duplicatedWindow(){				
+		window.open("/dupicateCheck");
+		
+	}
+</script>
 
 
 

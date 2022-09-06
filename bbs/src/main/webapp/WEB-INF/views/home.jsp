@@ -65,7 +65,7 @@
 	
 	<c:if test="${check}">
 		<script>
-			alert("로그인 성공")
+			alert("로그인 성공")		
 		</script>
 	</c:if>
 		
@@ -73,7 +73,7 @@
 		<script>
 		function getAlert(){			
 			var str;
-			if(confirm("정말 로그아웃을 하시겠습니까?") == true){
+			if(confirm("정말 로그아웃을 하시겠습니까?") == true){			
 				window.location.href="/home/logOut";
 			}else{
 				

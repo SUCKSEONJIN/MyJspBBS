@@ -1,6 +1,7 @@
 package web.bbs.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mysql.cj.xdevapi.JsonArray;
@@ -45,18 +47,18 @@ public class SignupController {
 	
 	@PostConstruct
 	public void example() {
-		Member member = new Member();
-		member.setName("석선진");
-		member.setAge(30);
-		member.setEmail("wlq862@naver.com");
-		member.setPassword("123123123");
-		member.setUserId("spring1");
-		
-		
-		memberRepository.save(member);
-		
-		Member member1 = new Member("석후진",30,"wlq123@naver.com","123123123","spring2");		
-		memberRepository.save(member1);
+//		Member member = new Member();
+//		member.setName("석선진");
+//		member.setAge(30);
+//		member.setEmail("wlq862@naver.com");
+//		member.setPassword("123123123");
+//		member.setUserId("spring1");
+//		
+//		
+//		memberRepository.save(member);
+//		
+//		Member member1 = new Member("석후진",30,"wlq123@naver.com","123123123","spring2");		
+//		memberRepository.save(member1);
 	}
 	
 	@GetMapping("/form")
@@ -73,10 +75,32 @@ public class SignupController {
 		if(result.hasErrors() == true) {
 			return "signUp";
 		}
-		memberRepository.save(member);
+		try{
+			memberRepository.save(member);
+		}catch (Exception e) {
+			log.error("회원가입 에러 message ={}" ,e.getMessage());
+			return "signUp";
+		}
 	
 		redirect.addAttribute("signUpCheck",signUpCheck);
 				
 		return "redirect:/";
+	}
+	
+	
+	@PostMapping("/duplilcatedLoginId")
+	public String checkDuplicatedUserIdLogic(@RequestParam("userId") String userId) {
+		Optional<Member> member = memberRepository.findByLoginId(userId);
+		member.orElse(null);
+		if(member == null) {
+			
+		}
+		return "signUp";
+	}
+	
+	@RequestMapping(value="/duplicateCheck")
+	public String checkDuplicationUserIdWindow(Model model) {		
+		model.addAttribute("duplicatedCheck",true);
+		return "/duplicatedUserIdWindow";
 	}
 }

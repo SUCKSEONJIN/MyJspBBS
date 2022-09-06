@@ -41,19 +41,16 @@ public class MemberMySqlRepository implements MemberRepository{
 	}
 	
 	@Override
-	public Member save(Member member)  {
-				
+	public Member save(Member member)  {				
 		String sql = "insert into members(name, email, password, age, userId)"
 				+ "values(:name,:email,:password,:age,:userId)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		template.update(sql, param, keyHolder);
 		long key = keyHolder.getKey().longValue();
-		member.setId(key);
-		
+		member.setId(key);				
 		return member;
-			
-		
+
 	}
 
 	@Override
@@ -110,5 +107,6 @@ public class MemberMySqlRepository implements MemberRepository{
 		return BeanPropertyRowMapper.newInstance(Member.class);
 	}
 	
+
 
 }

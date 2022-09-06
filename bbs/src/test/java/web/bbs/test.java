@@ -133,6 +133,9 @@ public class test {
 		map.put("name", "My bean");
 		log.info("결과 값2 : {}", map);
 	}
+	
+	
+	
 }
 
 
