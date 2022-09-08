@@ -19,7 +19,7 @@ import web.bbs.repository.member.MemberHashMapRepository;
 import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
 
-@Configuration
+//@Configuration
 public class WebHashConfig implements WebMvcConfigurer{
 
 	@Override

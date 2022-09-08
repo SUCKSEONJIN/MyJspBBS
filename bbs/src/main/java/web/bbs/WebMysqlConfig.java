@@ -23,7 +23,6 @@ import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
 
 @Configuration
-
 public class WebMysqlConfig implements WebMvcConfigurer{
 
 	
@@ -32,13 +31,13 @@ public class WebMysqlConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new LoginInterceptor())
 		.order(1)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/", "/home/login/form", "/home/logOut","/home/signUp/form"
+		.excludePathPatterns("/", "/home/login/form", "/home/logOut","/home/signUp/**"
 				,"/css/**","/js/**","/*.ico","/error","//code/**");
 		
 		registry.addInterceptor(new MemberDtoIntercepter())
 		.order(2)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/","/home/login/form", "/home/logOut","/home/signUp/form",
+		.excludePathPatterns("/","/home/login/form", "/home/logOut","/home/signUp/**",
 				"/css/**","/js/**","/*.ico","/error","//code/**");
 		
 		

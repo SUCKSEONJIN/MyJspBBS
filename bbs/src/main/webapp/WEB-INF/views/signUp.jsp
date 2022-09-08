@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,8 +67,28 @@
 	<div class="form-group">
 		<form:label path="userId">ID : </form:label><form:input class="form-control" path="userId"/>
 		<form:errors path="userId" cssStyle="color:red"/>
-		<button class="btn" onclick="duplicatedWindow()" />
 	</div>	
+	
+	<div>
+		<button class="btn" name="du">중복확인</button>
+		<c:if test="${status == true }">
+			<script type="text/javascript">
+				document.write("status :" +  "${check}");	
+				function duplicatedAlert(check){
+					if(check == "false"){
+						alert("중복 입니다. 다른 아이디를 사용하세요.");													
+					}else{
+						alert("사용 가능한 아이디 입니다.")	
+						
+					}
+			}
+				duplicatedAlert("${check}");
+			</script>
+			
+			
+		</c:if>
+	</div>
+			
 	<div class="from-group">
 		<form:label path="password">password : </form:label><form:password path="password" class="form-control"/>
 		<form:errors path="password" cssStyle="color:red" />
@@ -78,18 +99,26 @@
 		<form:errors path="email" cssStyle="color:red"/>
 	</div>
 	<div>
-		<form:button class="btn btn-primary float-right">확인</form:button>
+		<c:if test="${check == true}">		
+		<form:button class="btn btn-primary float-right" onclick="joinCongratulation()">확인</form:button>
+		</c:if>			
+	</div>
+	<div>	
+		<c:if test="${check != true }">
+		<button class="btn btn-primary float-right" onclick="submitBan()">확인</button>		
+		</c:if>
 	</div>
 </form:form>
+<c:set var="check1" value="false" scope="page"/>
+<script type="text/javascript" >
 
-
-<script>
-	function duplicatedWindow(){				
-		window.open("/dupicateCheck");
-		
+	function submitBan(){				
+		alert("중복 아이디 체크를 해야합니다.");	
+	}
+	function joinCongratulation(){
+		alert("회원가입 축하합니다");
 	}
 </script>
-
 
 
 

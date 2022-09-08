@@ -108,7 +108,7 @@ public class test {
 	}
 	
 	@Test
-	public void whenDeserializingUsingJsonAnySetter_thenCorrect() throws JsonMappingException, JsonProcessingException {
+	public void whenDeserializingUsingJsonAnySetter_thenCorrect() throws IOException {
 		String json = "{\"name\":\"My bean\",\"attr\":\"val1\"}";
 		ExtendableBean bean = new ObjectMapper().readerFor(ExtendableBean.class).readValue(json);
 		

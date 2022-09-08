@@ -8,19 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	ID가 중복입니다.	
-	<button onclick="WindowClose()" >확인</button>
 	
-	<form method= "POST" action="/home/signUp/form">
-		<input type="hidden" name="duplicatedCheck" value="true"/>
-		<button type="submit" onclick="WindowClose()"></button>	
-	</form>
-	
-		
+			
 	<script>
 		function WindowClose(){
+			alert("중복 입니다. 다른 아이디를 사용하세요.");	
 			window.close();
 		}
+		
+		WindowClose();
 	</script>
 	
 </body>

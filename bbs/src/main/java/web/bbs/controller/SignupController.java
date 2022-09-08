@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -62,8 +64,11 @@ public class SignupController {
 	}
 	
 	@GetMapping("/form")
-	public String signUp_form(Model model) {
-		model.addAttribute("member",new Member());
+	public String signUp_form(Model model, HttpServletRequest request, @RequestParam(required=false ,value="check") String check) {
+		
+		model.addAttribute("member",new Member());		
+		
+		//model.addAttribute("check",check);
 		return "signUp";
 	}
 	
@@ -87,14 +92,29 @@ public class SignupController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/form",method=RequestMethod.POST,params="du")
+	public String signUp_formPost_duplicated(@Valid @ModelAttribute("member") Member member1,
+			BindingResult result, RedirectAttributes redirect, HttpServletRequest request,Model model) {
+		log.info("du 실행중");
+		Optional<Member> member_o = memberRepository.findByLoginId(member1.getUserId());
+		Member member = member_o.orElse(null);
+		model.addAttribute("status",true);
+		if(member != null) {
+			model.addAttribute("check",false);			
+			log.info("중복값이 있습니다.");
+			return "signUp";
+		}
+		
+		//redirect.addAttribute("check", true);
+		model.addAttribute("check", true);
+		log.info("중복값이 없습니다.");
+		return "signUp";
+	}
 	
 	@PostMapping("/duplilcatedLoginId")
 	public String checkDuplicatedUserIdLogic(@RequestParam("userId") String userId) {
 		Optional<Member> member = memberRepository.findByLoginId(userId);
 		member.orElse(null);
-		if(member == null) {
-			
-		}
 		return "signUp";
 	}
 	
