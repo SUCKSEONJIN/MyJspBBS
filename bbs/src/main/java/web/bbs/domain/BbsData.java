@@ -10,19 +10,19 @@ import lombok.Setter;
 
 public class BbsData {
 	
-	@NotBlank
+	@NotBlank(message = "제목을 적어주세요")
 	private String title;
 	
-	@NotBlank
+	@NotBlank(message = "내용을 적어주세요")
 	private String text;
 	
 	@NotBlank
 	private String author;
-	
-	@NotBlank
-	private String time;
 		
-	private Integer good;
+	private String time;
+	
+	
+	private Integer good = 0;
 		
 	private Long id;
 	public BbsData() {

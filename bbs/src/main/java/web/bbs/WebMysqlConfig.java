@@ -66,7 +66,7 @@ public class WebMysqlConfig implements WebMvcConfigurer{
 	@Bean
 	public BbsRepository bbsRepository() throws ClassNotFoundException {
 		
-		BbsMysqlRepository bbsRepository = new BbsMysqlRepository(new NamedParameterJdbcTemplate(dataSource()));
+		BbsMysqlRepository bbsRepository = new BbsMysqlRepository(dataSource());
 		return bbsRepository;
 				
 	}

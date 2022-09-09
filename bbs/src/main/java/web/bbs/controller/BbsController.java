@@ -1,12 +1,16 @@
 package web.bbs.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +37,7 @@ public class BbsController {
 	@RequestMapping
 	public String viewBbs(HttpServletRequest request, Model model){		
 		Member member = (Member)request.getAttribute("member");
-		List<BbsData> bbsDatas = bbsService.BbsView();
+		List<BbsData> bbsDatas = bbsService.BbsView(new BbsData());
 		model.addAttribute("member",member);
 		log.info("viewBbs member.getName={}", member.getName());
 		model.addAttribute("bbsDatas", bbsDatas);		
@@ -51,11 +55,22 @@ public class BbsController {
 	}
 
 	@PostMapping("/write")
-	public String inputBbs_logic(@ModelAttribute("bbsData") BbsData bbsData,HttpServletRequest request) {
+	public String inputBbs_logic(@Valid @ModelAttribute("bbsData") BbsData bbsData, BindingResult result, HttpServletRequest request) {
+		
+		if(result.hasErrors() == true) {
+			return "bbsInputForm";
+		}
+		bbsData.setTime(createTime());
 		bbsService.bbsSave(bbsData,request);		
 		return "redirect:/home/bbs";
 	}
 	
+	public String createTime() {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+		String date = formatter.format(now);	
+		return date;
+	}
 	
 	
 	

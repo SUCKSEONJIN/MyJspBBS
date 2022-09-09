@@ -24,8 +24,8 @@ public class BbsService {
 	private final MemberRepository memberRepository;
 	private final BbsRepository BbsRepository;
 	
-	public List<BbsData> BbsView() {
-		return BbsRepository.findAll();	
+	public List<BbsData> BbsView(BbsData bbsData) {
+		return BbsRepository.findAll(bbsData);	
 	}	
 	
 	public void bbsSave(BbsData data, HttpServletRequest request) {

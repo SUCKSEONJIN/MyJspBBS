@@ -75,6 +75,12 @@ public class BbsHashMapRepository implements BbsRepository {
 	}
 	
 	@Override
+	public List<BbsData> findAll(BbsData bbsData){
+		
+		return null;
+	}
+	
+	
 	public List<BbsData> findAll(){
 		return new ArrayList<>(repository.values());
 	}
