@@ -43,8 +43,8 @@ public class BbsMysqlRepository implements BbsRepository{
 	
 	@Override
 	public Long save(BbsData data) {		
-		String sql = "insert into bbs(title, text, author, time) "
-				+ "values(:title, :text, :author, :time)";
+		String sql = "insert into bbs(title, text, author, time, good) "
+				+ "values(:title, :text, :author, :time, :good)";
 				
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		SqlParameterSource param = new BeanPropertySqlParameterSource(data);  

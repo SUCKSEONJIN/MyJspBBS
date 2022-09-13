@@ -100,7 +100,7 @@
 				<th scope="col">좋아요</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody>		
 			<c:forEach items="${bbsDatas}" var="bbsData">
 			 <tr>
 				<td>${bbsData.id}</td>
@@ -111,13 +111,28 @@
 			 </tr>
 			</c:forEach>				
 			
-		
 			
 		</tbody>
 	</table>
+			<form action="/home/bbs/page" method="post">
+				<button type="submit" name="previous">이전</button>
+				<input type="hidden" value="${num}" name="count">
+				<input type="hidden" value="${num + i}" name="pageNum">
+				<input type="hidden" value="${originalLast}" name="originalLast"/>
+				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber"/>
+				<c:forEach var="i"  begin="1" end="${pageNumberLast}">
+					<a href="/home/bbs/<c:out value='${i+num}'/>"><c:out value="${i+num}"/></a>
+				</c:forEach>
+				<button type="submit" name="next" >다음</button>
+			</form>
+		
 		<div class="col">
-			<button class="float-right" onclick="location.href='/home/bbs/write'" >작성</button>
+			<form action="/home/bbs/write" method="get">
+				<button class="float-right" type="submit" >작성</button>
+				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber">
+			</form>			
 		</div>
+		
 	</div>
 </div>
 </body>

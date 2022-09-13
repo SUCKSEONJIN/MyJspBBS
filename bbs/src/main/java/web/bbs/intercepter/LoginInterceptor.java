@@ -1,5 +1,7 @@
 package web.bbs.intercepter;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,10 +20,21 @@ public class LoginInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {		
 		String requestURI = request.getRequestURI();
+		
+		Enumeration<String> parameterNames = request.getParameterNames();
+		String queryString = request.getQueryString();
 		HttpSession session = request.getSession(false);
 		log.info(" requestURI = {} , session ={}, attribute ={}" ,requestURI, session,request.getAttribute(SessionConst.Login_session));
+		log.info("여기 reqeust.url값 : {}" , request.getRequestURL() );
+		log.info("request.getQueryString:{}", request.getQueryString());
+		log.info("request.getparameter;{}", request.getParameterNames());
 		if(session == null || session.getAttribute(SessionConst.Login_session) == null) {
-			response.sendRedirect("/home/login/form?redirectURL=" + requestURI);
+			if(queryString != null) {
+				response.sendRedirect("/home/login/form?redirectURL=" + requestURI+"?" + queryString);	
+			}else {
+				response.sendRedirect("/home/login/form?redirectURL=" + requestURI);
+			}
+			
 			return false;
 		}
 		request.setAttribute("sess", session);

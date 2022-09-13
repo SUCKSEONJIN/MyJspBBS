@@ -37,9 +37,18 @@ public class BbsService {
 			Member member = (Member)request.getAttribute("member");			
 		}
 		
-
+	}	
+	public List<BbsData> bbsDataSum() {
+		List<BbsData> list = BbsRepository.findAll(new BbsData());
+		int size = list.size();
+		return list;
 	}
-	
-	
+		
+	public int intOneValueExtract(int num) {
+		String sNum = String.valueOf(num);
+		char cNum = sNum.charAt(sNum.length()-1);			
+		return Integer.parseInt(String.valueOf(cNum));
+		
+	}
 	
 }

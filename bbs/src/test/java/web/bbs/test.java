@@ -10,9 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -113,7 +116,6 @@ public class test {
 		ExtendableBean bean = new ObjectMapper().readerFor(ExtendableBean.class).readValue(json);
 		
 		assertEquals("My bean", bean.name);
-		assertEquals("val1",bean.getProperties().get("attr"));
 	}
 
 	@Test
@@ -134,6 +136,50 @@ public class test {
 		log.info("결과 값2 : {}", map);
 	}
 	
+	@Test
+	public void listNumber() {
+		List<Integer> list = new ArrayList<>();
+		int a = 0;
+		while(a< 10) {
+			list.add(a);
+			++a;
+		}
+		
+		int size = list.size();
+		int lastIndexOfValue = list.lastIndexOf(0);
+		int lastIndexOfValue1 = list.get(size-1);
+		
+		System.out.println(list.get(9));
+		assertThat(size).isEqualTo(10);
+		
+	}
+	
+	
+	
+	@Test
+	public void numberParsing() {
+		int num = 23;		
+		String nums = String.valueOf(num);
+		int lastIndex = nums.length()-1;
+		
+		char c1 = nums.charAt(0);
+		char c2 = nums.charAt(1);			
+		int parsToInt = Integer.parseInt(String.valueOf(c2));
+		System.out.println("parsToInt ="+ parsToInt);
+		
+		int num1 = 12323214;
+		
+		
+		// 스트링에서 특정 숫자 추출 방법.
+		String num1s = String.valueOf(num1);
+		int size = num1s.length();
+		int result1 = Integer.parseInt(String.valueOf(num1s.charAt(size-1)));
+		// 일의 값 4가 나올꺼라 예상한다.
+		
+		assertThat(result1).isEqualTo(4);
+		
+		
+	}
 	
 	
 }

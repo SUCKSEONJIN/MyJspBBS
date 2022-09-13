@@ -32,13 +32,13 @@ public class WebMysqlConfig implements WebMvcConfigurer{
 		.order(1)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/", "/home/login/form", "/home/logOut","/home/signUp/**"
-				,"/css/**","/js/**","/*.ico","/error","//code/**");
+				,"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
 		
 		registry.addInterceptor(new MemberDtoIntercepter())
 		.order(2)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/","/home/login/form", "/home/logOut","/home/signUp/**",
-				"/css/**","/js/**","/*.ico","/error","//code/**");
+				"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
 		
 		
 	}

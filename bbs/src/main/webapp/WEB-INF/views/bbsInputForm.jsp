@@ -94,12 +94,14 @@
 				<form:textarea class = "form-control" rows="20" cols="50" path="text"></form:textarea>
 			</div>
 			<div class="form-group">				
-				<form:hidden class="form-control" path="author" value="${member.userId}"/>					
+				<form:hidden class="form-control" path="author" value="${member.userId}"/>							
 			</div>
+			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="확인">
 				<input type="button" class="btn btn-primary" onclick="location.href='/home/bbs'" value="취소"> 
 			</div>
+			
 		</form:form>		
 			
 				
