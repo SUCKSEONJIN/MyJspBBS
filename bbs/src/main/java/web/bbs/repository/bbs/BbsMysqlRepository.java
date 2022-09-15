@@ -1,6 +1,7 @@
 
 package web.bbs.repository.bbs;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -20,6 +22,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import ch.qos.logback.core.util.DatePatternToRegexUtil;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.BbsData;
 import web.bbs.domain.BbsDataCond;
@@ -80,9 +83,12 @@ public class BbsMysqlRepository implements BbsRepository{
 	}
 
 	@Override
-	public BbsData update(Long id, BbsData_update bbsData) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(Long id, BbsData_update bbsData) {
+		log.info("업데이트 bbsData ={} ,{} ,{} , id ={}", bbsData.getText(),bbsData.getTitle(),bbsData.getTime(),id);;
+		String update = "update bbs set title=:title, text=:text, time=:time where id =:id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("title", bbsData.getTitle())
+				.addValue("text", bbsData.getText()).addValue("id", id).addValue("time", bbsData.getTime());		
+		template.update(update,param);		
 	}
 
 	@Override
@@ -110,15 +116,10 @@ public class BbsMysqlRepository implements BbsRepository{
 			
 		}
 			
-		
-		
-		
-		
 				
 	}
 	
 	
-
 
 
 	

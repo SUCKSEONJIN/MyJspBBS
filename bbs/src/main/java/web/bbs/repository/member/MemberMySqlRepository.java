@@ -81,7 +81,7 @@ public class MemberMySqlRepository implements MemberRepository{
 
 	@Override
 	public void update(Long id, MemberUpdateDTO member) {
-		String sql = "update members set email = :member , password= :password";
+		String sql = "update members set email = :member , password= :password where id= :id";
 		SqlParameterSource param = new MapSqlParameterSource()
 				.addValue("email", member.getEmail())
 				.addValue("password", member.getPassword())

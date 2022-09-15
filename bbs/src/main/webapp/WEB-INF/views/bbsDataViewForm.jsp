@@ -1,10 +1,8 @@
 <%@page import="web.bbs.domain.Nav"%>
-<%@page import="web.bbs.repository.bbs.BbsHashMapRepository"%>
-<%@page import="web.bbs.repository.member.MemberHashMapRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
     
 <!DOCTYPE html>
 <html>
@@ -16,25 +14,12 @@
 <script src="/js/bootstrap.min.js"></script>
 
 <style>
-	a:link{
-		color:black;
-		text-decoration: none;
-		background: transparent;		
-	}
-	a:visited{
-		color:black;
-		text-decoration: none;
-		background-color: transparent;
-	}
-	a:active{
-		color:green;
-		text-decoration:none;
-		background-color: transparent;
+	.form-control[readonly], .form-control[disabled], fieldset[disabled], .form-control{
+		background-color:white;
 	}
 </style>
 
 <title>Insert title here</title>
-
 </head>
 <body>
 
@@ -106,53 +91,36 @@
 		</script>
 
 			
-	
-<div class="container">
-	<div class="row">
-	<table  class="table table-striped table-hover mx-auto mt-5">
-		
-		<thead>
-			<tr>
-				<th scope="col">No</th>
-				<th scope="col">제목</th>
-				<th scope="col">글쓴이</th>
-				<th scope="col">작성시간</th>
-				<th scope="col">좋아요</th>
-			</tr>
-		</thead>
-		<tbody>					
-			<c:forEach items="${bbsDatas}" var="bbsData">																					
-				 <tr>
-					<td>${bbsData.id}</td>
-					<td><a href="/home/bbs/bbsData/${bbsData.id}?currentPageNumber=${currentPageNumber}">${bbsData.title}</a></td>
-					<td>${bbsData.author}</td>
-					<td>${bbsData.time}</td>
-					<td>${bbsData.good}</td>					
-				 </tr>				 						 	
-				</c:forEach>				
+
+		<form:form action="/home/bbs/modify" method="get" modelAttribute="bbsData">
+			<div class="form-group">
+				<form:label path="title">Title : </form:label> <form:input path="title" readonly="true" value="${bbsData.title}" class="form-control"></form:input>
+			</div>			
+			<div class="form-group">		
+				<form:label path="text">content : </form:label><br>
+				<form:textarea class = "form-control" rows="20" cols="50" path="text" readonly= "true" value="${bbsData.text}" ></form:textarea>
+			</div>
+			<div class="form-group">				
+				<form:hidden class="form-control" path="author" value="${member.userId}"/>							
+			</div>
+			<div>
+				<form:hidden path="id" value="${bbsData.id}"/>
+			</div>
+			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
+			<div class="form-group">
+				<c:if test="${member.userId == bbsData.author}">
+					<input type="submit" class="btn btn-primary" value="수정" name="modify">												
+				</c:if>
+				<input type="submit" class="btn btn-primary" value="목록" name="list">
+			</div>
+			<div>
+				<form:hidden path="id"></form:hidden>
+			</div>
 			
-		</tbody>
-	</table>
-			<form action="/home/bbs/page" method="post">
-				<button type="submit" name="previous">이전</button>
-				<input type="hidden" value="${num}" name="count">
-				<input type="hidden" value="${num + i}" name="pageNum">
-				<input type="hidden" value="${originalLast}" name="originalLast"/>
-				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber"/>
-				<c:forEach var="i"  begin="1" end="${pageNumberLast}">
-					<a href="/home/bbs/<c:out value='${i+num}'/>"><c:out value="${i+num}"/></a>
-				</c:forEach>
-				<button type="submit" name="next" >다음</button>
-			</form>
-		
-		<div class="col">
-			<form action="/home/bbs/write" method="get">
-				<button class="float-right" type="submit" >작성</button>
-				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber">
-			</form>			
-		</div>
-		
-	</div>
-</div>
+		</form:form>		
+			
+				
+	
+	
 </body>
 </html>

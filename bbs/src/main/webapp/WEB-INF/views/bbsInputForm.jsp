@@ -87,7 +87,7 @@
 
 		<form:form action="/home/bbs/write" method="post" modelAttribute="bbsData">
 			<div class="form-group">
-				<form:label path="title">Title : </form:label> <form:input path="title"/>
+				<form:label path="title">Title : </form:label> <form:input path="title" class="form-control"/>
 			</div>			
 			<div class="form-group">		
 				<form:label path="text">content : </form:label><br>

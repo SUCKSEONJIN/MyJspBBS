@@ -59,19 +59,13 @@ public class BbsHashMapRepository implements BbsRepository {
 	}
 
 	@Override
-	public BbsData update(Long id, BbsData_update bbsData) {
+	public void update(Long id, BbsData_update bbsData) {
 		BbsData findedBbsData = repository.get(id);
-		if(bbsData.getAuthor() != null) {
-			findedBbsData.setAuthor(bbsData.getAuthor());
-		}
 		if(bbsData.getText()!= null) {
 			findedBbsData.setText(bbsData.getText());			
 		}
-		if(bbsData.getTime() != null) {
-			findedBbsData.setTime(createTime());
-		}
-		
-		return findedBbsData;
+	
+			
 	}
 	
 	@Override

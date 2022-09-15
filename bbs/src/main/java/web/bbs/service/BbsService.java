@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.BbsData;
+import web.bbs.domain.BbsData_update;
 import web.bbs.domain.Member;
 import web.bbs.repository.bbs.BbsRepository;
 import web.bbs.repository.member.MemberRepository;
@@ -22,15 +23,20 @@ import web.bbs.repository.member.MemberRepository;
 @RequiredArgsConstructor
 public class BbsService {	
 	private final MemberRepository memberRepository;
-	private final BbsRepository BbsRepository;
+	private final BbsRepository bbsRepository;
 	
-	public List<BbsData> BbsView(BbsData bbsData) {
-		return BbsRepository.findAll(bbsData);	
+	public List<BbsData> bbsView(BbsData bbsData) {
+		return bbsRepository.findAll(bbsData);	
 	}	
 	
+	public BbsData bbsDataView(Long bbsDataId) {		
+		Optional<BbsData> bbsData = bbsRepository.findById(bbsDataId);		
+		return bbsData.orElse(null); 
+	}
+	
 	public void bbsSave(BbsData data, HttpServletRequest request) {
-		Long dataId = BbsRepository.save(data);		
-		Optional<BbsData> bbsData_o = BbsRepository.findById(dataId);
+		Long dataId = bbsRepository.save(data);		
+		Optional<BbsData> bbsData_o = bbsRepository.findById(dataId);
 		BbsData bbsData = bbsData_o.orElse(null);
 		if(bbsData != null) {
 			bbsData.getId();
@@ -38,8 +44,13 @@ public class BbsService {
 		}
 		
 	}	
+	
+	public void bbsDataModify(Long bbsDataId , BbsData_update bbsUpdate) {			
+		bbsRepository.update(bbsDataId, bbsUpdate);
+		
+	}
 	public List<BbsData> bbsDataSum() {
-		List<BbsData> list = BbsRepository.findAll(new BbsData());
+		List<BbsData> list = bbsRepository.findAll(new BbsData());
 		int size = list.size();
 		return list;
 	}

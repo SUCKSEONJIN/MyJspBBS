@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.BbsData;
+import web.bbs.domain.BbsData_update;
 import web.bbs.domain.Member;
 import web.bbs.repository.member.MemberRepository;
 import web.bbs.service.BbsService;
@@ -57,16 +59,11 @@ public class BbsController {
 		}else {
 			subList = list.subList(0+(10*(currentPageNumber-1)), oneValue+(10*(currentPageNumber-1)));
 		}
+		model.addAttribute("ampt",1);
 		model.addAttribute("member", member);
 		model.addAttribute("bbsDatas", subList);
 		model.addAttribute("currentPageNumber",currentPageNumber);			
-		model.addAttribute("num",0);	
-		
-//		List<BbsData> bbsDatas = bbsService.BbsView(new BbsData());
-//		model.addAttribute("member",member);
-//		log.info("viewBbs member.getName={}", member.getName());
-//		model.addAttribute("bbsDatas", bbsDatas);		
-
+		model.addAttribute("num",0);			
 
 		return "bbs";
 	}
@@ -119,11 +116,10 @@ public class BbsController {
 			pageNumberLast = size / 10 + 1;
 		}
 		
-		Integer numberViewCount = 5;
-		//Integer pageNumberLast = 9;// 페이지 라스트 넘버 값을 위에서 계산하여 여기로 넘겨줘야함.
+		Integer numberViewLimit = 5;
 		
-		if(pageNumberLast > numberViewCount) {
-			model.addAttribute("pageNumberLast",numberViewCount);
+		if(pageNumberLast > numberViewLimit) {
+			model.addAttribute("pageNumberLast",numberViewLimit);
 		}else{
 			log.info("pageNumberLast 값 : {}", pageNumberLast);
 			model.addAttribute("pageNumberLast",pageNumberLast);		
@@ -170,12 +166,58 @@ public class BbsController {
 	}
 	
 	
+	// bbsData view 
 	
+	@RequestMapping(value="/bbsData/{bbsDataId}", method = RequestMethod.GET)	
+	public String bbsDataView(@PathVariable("bbsDataId") Long bbsDataId, Model model,
+			@RequestParam("currentPageNumber")Integer currentPageNumber) {
+		BbsData bbsData = bbsService.bbsDataView(bbsDataId);
+		model.addAttribute("bbsData",bbsData);
+		model.addAttribute("bbsDataId", bbsDataId);
+		model.addAttribute("currentPageNumber",currentPageNumber);
+		return "bbsDataViewForm"; 
+	}
+		
+	@GetMapping(value="/modify", params="list")
+	public String bbsDataModify_list(@RequestParam("currentPageNumber") Integer currentPageNumber,
+			RedirectAttributes redirect) {
+		log.info("리스트 작동중");
+		redirect.addAttribute("currentPageNumber",currentPageNumber);
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
 	
+	@GetMapping(value="/modify", params="modify")
+	public String bbsDataModify_modify(Model model,@RequestParam("currentPageNumber") Integer currentPageNumber,			
+		@RequestParam("id") Long id) {
+		
+		BbsData bbsData = bbsService.bbsDataView(id);
+		model.addAttribute("currentPageNumber", currentPageNumber);
+		model.addAttribute("bbsData", bbsData);
+		return "bbsModifyForm";
+	}
 	
+	@PostMapping(value="/modify",params="check")
+	public String bbsDataModifyCheck(@ModelAttribute("bbsData")BbsData bbsData,Model model,
+			@RequestParam("currentPageNumber") Integer currentPageNumber, RedirectAttributes redirect) {
+		BbsData_update updateData = new BbsData_update();
+		updateData.setTitle(bbsData.getTitle());
+		updateData.setText(bbsData.getText());
+		updateData.setTime(createTime());
+		log.info("업데이트 id값 = {}", bbsData.getId());
+		bbsService.bbsDataModify(bbsData.getId(), updateData);
+		redirect.addAttribute("currentPageNumber",currentPageNumber);
+		
+		return "redirect:/home/bbs/{currentPageNumber}";		
+	}
 	
+	@PostMapping(value="/modify",params="list")
+	public String bbsDataModifyCancel(@RequestParam("currentPageNumber")Integer currentPageNumber, 
+			RedirectAttributes redirect) {
+		redirect.addAttribute("currentPageNumber", currentPageNumber);
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
 	
-	
+
 	
 	
 }

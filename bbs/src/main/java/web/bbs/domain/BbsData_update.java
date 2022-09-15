@@ -10,9 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BbsData_update {
 	
-	private String author;
-	private String time;
+	private String title;
 	private String text;
+	private String time;
 	
 	
 }
