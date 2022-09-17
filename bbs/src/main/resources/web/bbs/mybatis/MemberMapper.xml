@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="web.bbs.mybatis.MemberMapper">
+
+<insert id="save" useGeneratedKeys="true" keyProperty="id" >
+	insert into members(name , age, userId, password, email)
+	values(#{name}, #{age}, #{userId},#{password},#{email}) 
+</insert>
+
+<update id="update">
+	update members
+	set email=#{updateParam.email},
+		password=#{updateParam.password},		
+		where id = #{id}
+</update>
+
+<select id="findById" resultType="Member">
+	select *
+	from members
+	where id = #{id}	
+</select>
+
+<select id="findByAll" resultType="Member">
+	select *
+	from members
+</select>		
+
+<select id="findByLoginId" resultType="Member">
+	select * from members 
+	<where>
+		<if test="userId != null and userId != ''">
+			userId = #{userId}
+		</if>
+	</where>
+</select>
+	
+<delete id="clear">
+delete from members
+<where>
+	<if test="id != null">
+		id = #{id}
+	</if>
+</where>
+</delete>
+	
+<delete id="clearAll">
+	delete from members				
+</delete>
+
+</mapper>

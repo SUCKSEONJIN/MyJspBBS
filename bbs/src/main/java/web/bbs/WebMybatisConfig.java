@@ -2,8 +2,11 @@ package web.bbs;
 
 import java.sql.Connection;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.metadata.HikariDataSourcePoolMetadata;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,15 +20,19 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import web.bbs.intercepter.LoginInterceptor;
 import web.bbs.intercepter.MemberDtoIntercepter;
+import web.bbs.mybatis.MemberMapper;
 import web.bbs.repository.bbs.BbsMysqlRepository;
 import web.bbs.repository.bbs.BbsRepository;
 import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
+import web.bbs.repository.member.MyBatisMemberRepository;
 
-@Configuration
-public class WebMysqlConfig implements WebMvcConfigurer{
 
-	
+//@Configuration
+public class WebMybatisConfig implements WebMvcConfigurer{
+
+	@Autowired
+	private MemberMapper memberMapper;	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor())
@@ -43,11 +50,9 @@ public class WebMysqlConfig implements WebMvcConfigurer{
 		
 	}
 	
-	@Bean
-	public MemberRepository memberRepository() throws ClassNotFoundException {
-		MemberMySqlRepository memberRepository = new MemberMySqlRepository(dataSource());		
-		return memberRepository;
-		
+	@PostConstruct
+	public MemberRepository memberRepository() throws ClassNotFoundException {				
+		return new MyBatisMemberRepository( memberMapper);		
 	}
 	
 	@Bean

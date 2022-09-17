@@ -89,7 +89,7 @@ public class SignupController {
 	
 		redirect.addAttribute("signUpCheck",signUpCheck);
 				
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	@RequestMapping(value="/form",method=RequestMethod.POST,params="du")
