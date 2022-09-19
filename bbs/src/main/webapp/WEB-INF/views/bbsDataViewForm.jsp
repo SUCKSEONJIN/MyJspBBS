@@ -56,14 +56,13 @@
           List
         </a>        
         <div class="dropdown-menu ">
-        	<c:if test="${sess == null}">
+        	<c:if test="${sess == null or sessionScope.member == null}">
 	          <a class="dropdown-item" href="${loginUri}">LogIn</a>
 	          <a class="dropdown-item" href="${signUpUri}">Join</a>
 	        </c:if>
-	        <c:if test="${sess != null}">
+	        <c:if test="${sess != null and sessionScope.member != null}">
 	        	<button class="dropdown-item" onclick="getAlert()">LogOut</button>
 	        </c:if>
-	                  
         </div>       
       </li>     
     </ul>

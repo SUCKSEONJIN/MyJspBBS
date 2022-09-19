@@ -21,10 +21,10 @@ public class MemberDtoIntercepter implements HandlerInterceptor{
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute(SessionConst.Login_session) != null && session != null ) {
 			request.setAttribute("member", session.getAttribute(SessionConst.Login_session));
-			
-			return true;
+		
 		}
-			return false;
+		
+		return true;
 	}
 
 	

@@ -69,7 +69,7 @@ public class LoginController {
 		alert = true;
 		redirect.addFlashAttribute("check", alert);
 		redirect.addFlashAttribute("member1",passedMember);
-				
+		
 		
 		String url = request.getQueryString();		
 		int index = url.indexOf("=");

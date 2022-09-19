@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.Member;
+import web.bbs.domain.SessionConst;
 import web.bbs.repository.member.MemberRepository;
 
 @Slf4j
@@ -27,7 +29,7 @@ public class HomeController {
 		log.info("로그아웃 직후 session={}",session);
 		model.addAttribute("sess",session);
 		
-		model.addAttribute("member", request.getAttribute("member"));		
+		model.addAttribute("member", member);		
 		return "home";
 	}
 }

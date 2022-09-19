@@ -34,10 +34,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 			}else {
 				response.sendRedirect("/home/login/form?redirectURL=" + requestURI);
 			}
-			
+						
 			return false;
 		}
-		request.setAttribute("sess", session);
+		session.setAttribute("sess", session);		
+		log.info("session={}",session);
+				
 		return true;
 					
 	}
