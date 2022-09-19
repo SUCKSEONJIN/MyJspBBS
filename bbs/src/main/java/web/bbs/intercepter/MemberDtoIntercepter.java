@@ -9,8 +9,10 @@ import org.apache.catalina.Session;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.SessionConst;
 
+@Slf4j
 public class MemberDtoIntercepter implements HandlerInterceptor{
 
 	@Override
@@ -19,6 +21,7 @@ public class MemberDtoIntercepter implements HandlerInterceptor{
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute(SessionConst.Login_session) != null && session != null ) {
 			request.setAttribute("member", session.getAttribute(SessionConst.Login_session));
+			
 			return true;
 		}
 			return false;

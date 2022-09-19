@@ -55,7 +55,7 @@ public class BbsController {
 		int oneValue = bbsService.intOneValueExtract(size);
 		int lastLimit = 9+(10*(currentPageNumber-1));
 		if(lastIndex >= lastLimit) {		
-			subList = list.subList(0+(10*(currentPageNumber-1)), lastLimit);			
+			subList = list.subList(0+(10*(currentPageNumber-1)), lastLimit+1);			
 		}else {
 			subList = list.subList(0+(10*(currentPageNumber-1)), oneValue+(10*(currentPageNumber-1)));
 		}

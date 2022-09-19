@@ -26,7 +26,8 @@ public class HomeController {
 		HttpSession session = request.getSession(false);
 		log.info("로그아웃 직후 session={}",session);
 		model.addAttribute("sess",session);
-		model.addAttribute("member", member);		
+		
+		model.addAttribute("member", request.getAttribute("member"));		
 		return "home";
 	}
 }

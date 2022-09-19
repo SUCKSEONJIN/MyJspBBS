@@ -22,7 +22,7 @@ import web.bbs.repository.bbs.BbsRepository;
 import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
 
-@Configuration
+//@Configuration
 public class WebMysqlConfig implements WebMvcConfigurer{
 
 	

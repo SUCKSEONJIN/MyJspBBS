@@ -20,19 +20,23 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import web.bbs.intercepter.LoginInterceptor;
 import web.bbs.intercepter.MemberDtoIntercepter;
+import web.bbs.mybatis.BbsMybatisMapper;
 import web.bbs.mybatis.MemberMapper;
 import web.bbs.repository.bbs.BbsMysqlRepository;
 import web.bbs.repository.bbs.BbsRepository;
+import web.bbs.repository.bbs.MybatisBbsRepository;
 import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
 import web.bbs.repository.member.MyBatisMemberRepository;
 
 
-//@Configuration
+@Configuration
 public class WebMybatisConfig implements WebMvcConfigurer{
 
 	@Autowired
 	private MemberMapper memberMapper;	
+	@Autowired
+	private BbsMybatisMapper bbsMapper;
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor())
@@ -71,7 +75,7 @@ public class WebMybatisConfig implements WebMvcConfigurer{
 	@Bean
 	public BbsRepository bbsRepository() throws ClassNotFoundException {
 		
-		BbsMysqlRepository bbsRepository = new BbsMysqlRepository(dataSource());
+		BbsRepository bbsRepository = new MybatisBbsRepository(bbsMapper);
 		return bbsRepository;
 				
 	}
