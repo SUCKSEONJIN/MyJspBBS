@@ -20,6 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import web.bbs.intercepter.LoginInterceptor;
 import web.bbs.intercepter.MemberDtoIntercepter;
+import web.bbs.intercepter.NavInterceptor;
 import web.bbs.mybatis.BbsMybatisMapper;
 import web.bbs.mybatis.MemberMapper;
 import web.bbs.repository.bbs.BbsMysqlRepository;
@@ -39,14 +40,19 @@ public class WebMybatisConfig implements WebMvcConfigurer{
 	private BbsMybatisMapper bbsMapper;
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor())
+		registry.addInterceptor(new NavInterceptor())
 		.order(1)
+		.addPathPatterns("/**")
+		.excludePathPatterns("/css/**","/js/**","//code/**","/test/**");
+		
+		registry.addInterceptor(new LoginInterceptor())
+		.order(2)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/", "/home/login/form", "/home/logOut","/home/signUp/form"
 				,"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
 		
 		registry.addInterceptor(new MemberDtoIntercepter())
-		.order(2)
+		.order(3)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/","/home/login/form", "/home/logOut","/home/signUp/**",
 				"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
