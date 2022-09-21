@@ -11,7 +11,7 @@
 <update id="update">
 	update members
 	set email=#{updateParam.email},
-		password=#{updateParam.password},		
+		password=#{updateParam.password}
 		where id = #{id}
 </update>
 

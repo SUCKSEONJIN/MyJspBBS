@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/AtagProperty.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -42,7 +43,7 @@
         </a>        
         <div class="dropdown-menu ">
         	<c:if test="${sess == null or sessionScope.member == null}">
-	          <a class="dropdown-item" href="${loginUri}">LogIn</a>
+	          <a class="dropdown-item" href="${logInUri}">LogIn</a>
 	          <a class="dropdown-item" href="${signUpUri}">Join</a>
 	        </c:if>
 	        <c:if test="${sess != null and sessionScope.member != null}">
@@ -89,15 +90,16 @@
 				<form:hidden class="form-control" path="author" value="${member.userId}"/>							
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
+			<div class="form-group">				
+				<input type="button" class="btn btn-primary ml-4" onclick="location.href='/home/bbs'" value="취소" > 
+			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="확인">
-				<input type="button" class="btn btn-primary" onclick="location.href='/home/bbs'" value="취소"> 
 			</div>
-			
 		</form:form>		
 			
 				
 	
-	</table>
+	
 </body>
 </html>

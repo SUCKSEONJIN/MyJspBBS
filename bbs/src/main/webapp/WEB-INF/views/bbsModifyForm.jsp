@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/AtagProperty.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -42,7 +43,7 @@
         </a>        
         <div class="dropdown-menu ">
         	<c:if test="${sess == null or sessionScope.member == null}">
-	          <a class="dropdown-item" href="${loginUri}">LogIn</a>
+	          <a class="dropdown-item" href="${logInUri}">LogIn</a>
 	          <a class="dropdown-item" href="${signUpUri}">Join</a>
 	        </c:if>
 	        <c:if test="${sess != null and sessionScope.member != null}">
@@ -54,7 +55,7 @@
     </ul>
   </div>
   
- <c:if test="${sess != null}">${member.userId}님</c:if>
+ <c:if test="${sess != null and sessionScope.member != null}"><a href="/home/memberInfo"> ${sessionScope.member.userId}님</a></c:if>
 </nav>
 	
 	<c:if test="${check}">
