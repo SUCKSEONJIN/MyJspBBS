@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 
 public class LogOutController {
-
-	
 	
 	@GetMapping("/home/logOut")
 	public String logOUt(HttpServletRequest request) {

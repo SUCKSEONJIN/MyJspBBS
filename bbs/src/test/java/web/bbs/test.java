@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -19,7 +20,7 @@ import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.web.util.UriUtils;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.internal.Utils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -181,6 +183,17 @@ public class test {
 		
 	}
 	
+	@Test
+	public void utilsTest() {
+		
+		String[] hello = {"dis", "sdfs","sdf"};
+		String va = "\u005a";
+		
+		String charset = "charset";
+		String query = "query";
+		String uri = UriUtils.encodeQuery(query, Charset.forName("UTF-8"));
+		assertThat(uri).isEqualTo("");
+	}
 	
 }
 

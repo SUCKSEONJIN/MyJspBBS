@@ -43,19 +43,19 @@ public class WebMybatisConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new NavInterceptor())
 		.order(1)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/css/**","/js/**","//code/**","/test/**");
+		.excludePathPatterns("/css/**","/js/**","//code/**","/test/**","/img/**");
 		
 		registry.addInterceptor(new LoginInterceptor())
 		.order(2)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/", "/home/login/form", "/home/logOut","/home/signUp/form"
-				,"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
+				,"/css/**","/js/**","/*.ico","/error","//code/**","/test/**","/img/**");
 		
 		registry.addInterceptor(new MemberDtoIntercepter())
 		.order(3)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/","/home/login/form", "/home/logOut","/home/signUp/**",
-				"/css/**","/js/**","/*.ico","/error","//code/**","/test/**");
+				"/css/**","/js/**","/*.ico","/error","//code/**","/test/**","/img/**");
 		
 		
 	}

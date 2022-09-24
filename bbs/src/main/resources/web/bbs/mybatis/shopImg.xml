@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="web.bbs.mybatis.ShopImgMapper">
+
+
+<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	insert into shopImgResource(ref) values(#{ref})
+</insert>
+
+<resultMap type="b" id=""></resultMap>
+
+<update id="update" >
+	update table shopImgResource set ref=#{ref}	
+</update>
+
+<select id="findById" resultType="ShopImg">
+	
+</select>
+
+
+
+</mapper>
+
+
