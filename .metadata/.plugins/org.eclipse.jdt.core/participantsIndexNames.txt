@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+C:\Users\hu\MyjspBBS\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1029923504.index
+\bbs\src\main\java
