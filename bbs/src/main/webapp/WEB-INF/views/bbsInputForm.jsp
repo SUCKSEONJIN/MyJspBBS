@@ -91,9 +91,7 @@
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
 			<div class="form-group">				
-				<input type="button" class="btn btn-primary ml-4" onclick="location.href='/home/bbs'" value="취소" > 
-			</div>
-			<div class="form-group">
+				<input type="button" class="btn btn-primary ml-4" onclick="location.href='/home/bbs'" value="취소" > 			
 				<input type="submit" class="btn btn-primary" value="확인">
 			</div>
 		</form:form>		
