@@ -1,4 +1,4 @@
-package web.bbs.repository.shop;
+package web.bbs.mybatis;
 
 import java.util.List;
 import java.util.Optional;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 import web.bbs.domain.ShopImg;
+import web.bbs.mybatis.ShopImgMapper;
 
 @Repository
 @RequiredArgsConstructor

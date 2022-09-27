@@ -75,12 +75,12 @@
 			}
 			 }
 		</script>
+		
+		
 	
-	<form:form method="post" modelAttribute="shopData" enctype="Multipart/fomr">
-	
-	
-	</form:form>
-			
+		
+		
+		<a href="/home/shop/shopDataForm">임시 생성버튼</a>
 	
 		
 	
