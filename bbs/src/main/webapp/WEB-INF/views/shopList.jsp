@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/css/AtagProperty.css" rel="stylesheet">
+<link href="/css/customStyle.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -75,12 +75,12 @@
 			}
 			 }
 		</script>
+		
+		
 	
-	<form:form method="post" modelAttribute="shopData" enctype="Multipart/fomr">
-	
-	
-	</form:form>
-			
+		
+		
+		<a href="/home/shop/shopDataForm">임시 생성버튼</a>
 	
 		
 	

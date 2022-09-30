@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/css/AtagProperty.css" rel=stylesheet">
+<link href="/css/customStyle.css" rel=stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>Sign up Window</title>
@@ -43,7 +43,7 @@
           List
         </a>
         <div class="dropdown-menu ">
-          <a class="dropdown-item" href="${loginUri}">LogIn</a>
+          <a class="dropdown-item" href="${logInUri}">LogIn</a>
           <a class="dropdown-item" href="${signUpUri}">Join</a>          
         </div>
       </li>
@@ -51,58 +51,69 @@
   </div>
 </nav>
 
-<form:form action="/home/signUp/form" method="Post" modelAttribute="member">
-	<div class="form-group">
-		<form:label path="name">Name : </form:label><form:input class= "form-control" path="name"/>
-		<form:errors path="name" cssStyle="color:red"/>		
-	</div>
-	<div class="form-group">	
-		<form:label path="age">Age : </form:label><form:input class="form-control" path="age"/>
-		<form:errors path="age" cssStyle="color:red"/>
-	</div>
-	<div class="form-group">
-		<form:label path="userId">ID : </form:label><form:input class="form-control" path="userId"/>
-		<form:errors path="userId" cssStyle="color:red"/>
-	</div>	
-	
-	<div>
-		<button class="btn" name="du">중복확인</button>
-		<c:if test="${status == true }">
-			<script type="text/javascript">
-				document.write("status :" +  "${check}");	
-				function duplicatedAlert(check){
-					if(check == "false"){
-						alert("중복 입니다. 다른 아이디를 사용하세요.");													
-					}else{
-						alert("사용 가능한 아이디 입니다.")	
-						
-					}
-			}
-				duplicatedAlert("${check}");
-			</script>
+<form:form action="/home/signUp/form" method="Post" modelAttribute="member" style="width:50%" class="mx-auto" >
+	<div class="mx-auto">
 			
-			
-		</c:if>
-	</div>
-			
-	<div class="from-group">
-		<form:label path="password">password : </form:label><form:password path="password" class="form-control"/>
-		<form:errors path="password" cssStyle="color:red" />
-	</div>
-	
-	<div class="form-group">
-		<form:label path="email">E-mail : </form:label><form:input path="email" class="form-control"></form:input>
-		<form:errors path="email" cssStyle="color:red"/>
-	</div>
-	<div>
-		<c:if test="${check == true}">		
-		<form:button class="btn btn-primary float-right" onclick="joinCongratulation()">확인</form:button>
-		</c:if>			
-	</div>
-	<div>	
-		<c:if test="${check != true }">
-		<button class="btn btn-primary float-right" onclick="submitBan()">확인</button>		
-		</c:if>
+		<div class= "form-group" align="center">
+			<h1>Sign up</h1>
+		</div>
+		
+		<div class="form-group">
+			<form:label path="name">Name : </form:label>
+			<form:input class= "form-control" path="name" size="100"/>
+			<form:errors path="name" cssStyle="color:red"/>		
+		</div>
+		
+		<div class="form-group">	
+			<form:label path="age">Age : </form:label>
+			<form:input class="form-control" path="age"/>
+			<form:errors path="age" cssStyle="color:red"/>
+		</div>
+		<div class="form-group">
+			<form:label path="userId">ID : </form:label>
+			<form:input class="form-control" path="userId"/>
+			<form:errors path="userId" cssStyle="color:red"/>
+					
+			<button class="btn" name="du">중복확인</button>
+			<c:if test="${status == true }">
+				<script type="text/javascript">
+					document.write("status :" +  "${check}");	
+					function duplicatedAlert(check){
+						if(check == "false"){
+							alert("중복 입니다. 다른 아이디를 사용하세요.");													
+						}else{
+							alert("사용 가능한 아이디 입니다.")	
+							
+						}
+				}
+					duplicatedAlert("${check}");
+				</script>
+				
+				
+			</c:if>
+		</div>	
+				
+		<div class="from-group">	
+			<form:label path="password">password : </form:label>
+			<form:password path="password" class="form-control"/>
+			<form:errors path="password" cssStyle="color:red" />
+		</div>
+		
+		<div class="form-group">
+			<form:label path="email">E-mail : </form:label>
+			<form:input path="email" class="form-control"></form:input>
+			<form:errors path="email" cssStyle="color:red"/>
+		</div>
+		<div>
+			<c:if test="${check == true}">		
+				<form:button class="btn btn-primary float-right" onclick="joinCongratulation()">확인</form:button>
+			</c:if>			
+		</div>
+		<div>	
+			<c:if test="${check != true }">
+			<button class="btn btn-primary float-right" onclick="submitBan()">확인</button>		
+			</c:if>
+		</div>
 	</div>
 </form:form>
 <c:set var="check1" value="false" scope="page"/>

@@ -31,10 +31,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.internal.Utils;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
+@RequiredArgsConstructor
 public class test {
+	
+	//private final TestMybatisRespositoroy repository;
 	@Test
 	public void String_contains() {
 		String parentString = "I like a apple";
@@ -194,6 +199,18 @@ public class test {
 		String uri = UriUtils.encodeQuery(query, Charset.forName("UTF-8"));
 		assertThat(uri).isEqualTo("");
 	}
+	
+	
+	
+	@Test
+	public void exampleTabel() {
+		
+//		String hoho = "123";
+//		text.setDocs(hoho);
+//		System.out.println("text.docs = " + text.getDocs());
+//		//repository.save(text.getDocs()); 
+	}
+	
 	
 }
 

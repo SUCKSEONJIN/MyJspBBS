@@ -22,18 +22,18 @@ public class BbsData {
 	private String time;
 	
 	
-	private Integer good = 0;
+	private Integer views = 0;
 		
 	private Long id;
 	public BbsData() {
 		
 	}
 	
-	public BbsData(String title, String text, String author, String time, Integer good ) {
+	public BbsData(String title, String text, String author, String time, Integer views ) {
 		this.title = title;
 		this.text = text;
 		this.author=author;
 		this.time = time;
-		this.good = good;
+		this.views = views;
 	}
 }

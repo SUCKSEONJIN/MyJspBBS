@@ -4,17 +4,27 @@
 <mapper namespace="web.bbs.mybatis.BbsMybatisMapper">
 
 <insert id="save" useGeneratedKeys="true" keyProperty="id">
-	insert into bbs(title, text, author,time, good) 
-	values(#{title}, #{text}, #{author}, #{time},#{good})
+	insert into bbs(title, text, author,time, views) 
+	values(#{title}, #{text}, #{author}, #{time},#{views})
 </insert>
 
 <update id= "update">
-update bbs set title=#{title}, text=#{text}, time=#{time} )
+update bbs set title=#{title}, text=#{text}, time=#{time} 
 <where>
 	<if test="id != null">
 		id = #{id}
 	</if>
 </where>
+</update>
+
+<update id= "updateViews">
+update bbs set views= #{views}
+<where>
+	<if test="id != null">
+		id = #{id}
+	</if>
+</where>
+
 </update>
 
 <select id="findById" resultType="BbsData">

@@ -22,6 +22,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ import web.bbs.domain.Member;
 import web.bbs.domain.MemberUpdateDTO;
 
 @Slf4j
-@Controller
+@Repository
 public class MemberMySqlRepository implements MemberRepository{
 
 	private final NamedParameterJdbcTemplate template;

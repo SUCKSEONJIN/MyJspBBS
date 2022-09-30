@@ -8,11 +8,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/css/AtagProperty.css" rel="stylesheet">
+<link href="/css/customStyle.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
+
+<style>
+	.carousel-inner img {
+    width: 600px;
+    height: 300px;
+  }
+</style>
 <body>
  
 
@@ -76,6 +83,50 @@
 		</script>
 
 			
+	<div class=".jumbotron jumbotron-fluid">
+		<div class="container align mt-5" align="center">
+			<h1>WELLCOME TO MY PROJECT</h1>
+			
+			<div id="introduction" class="carousel slide" data-ride="carousel">
+				<!-- indicators -->
+				<ul class="carousel-indicators">
+					<li data-target="#introduction" data-slide-to="0" class="active"></li>
+					<li data-target="#introduction" data-slide-to="1" ></li>
+					<li data-target="#introduction" data-slide-to="2"></li>	
+					<li data-target="#introduction" data-slide-to="3"></li>		
+				</ul>	
+		
+			<!-- The slideShow  -->
+			<div class="carousel-inner">			
+				<div class="carousel-item active">
+					<img src ="/img/sea.jpg" class="rounded" width="600" height="300" alt="no image" />
+				</div>			
+				<div class="carousel-item">
+					<img src="/img/cat1.jpg" alt="no image" class="rounded" width="600" height="300">
+				</div>
+				<div class="carousel-item">
+					<img src="/img/home1.jpg" alt="no image" class="rounded" width="600" height="300"/>
+				</div>
+				<div class="carousel-item">
+					<img src="/img/Siamese cat.jpg" alt="no image" class="rounded" width="600" height="300">
+				</div>
+			</div>
+			
+			<!-- Left and Light controls -->
+			<a class="carousel-control-prev" href="#introduction" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>			
+			</a>
+			<a class="carousel-control-next" href="#introduction" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
+		
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	
 	
 		
 	

@@ -61,5 +61,13 @@ public class BbsService {
 		return Integer.parseInt(String.valueOf(cNum));
 		
 	}
+
+	public void incrementViews(Long id) {
+		
+		Optional<BbsData> optionalMember = bbsRepository.findById(id);
+		BbsData member = optionalMember.orElse(null);		
+		bbsRepository.updateViews(id,member.getViews()+1);
+		
+	}
 	
 }

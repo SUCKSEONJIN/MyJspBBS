@@ -52,5 +52,9 @@ public class MybatisBbsRepository implements BbsRepository{
 		
 	}
 	
+	public void updateViews(Long id , Integer views) {
+		mapper.updateViews(id, views);
+	}
+	
 
 }

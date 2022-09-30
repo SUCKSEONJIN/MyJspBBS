@@ -7,12 +7,13 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import web.bbs.domain.Member;
 import web.bbs.domain.MemberUpdateDTO;
 
 
-@Controller
+//@Repository
 public class MemberHashMapRepository implements MemberRepository{
 	
 	private final Map<Long, Member> repository = new ConcurrentHashMap();
