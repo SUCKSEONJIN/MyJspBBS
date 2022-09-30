@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/css/AtagProperty.css" rel="stylesheet">
+<link href="/css/customStyle.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
@@ -18,6 +18,7 @@
 	.form-control[readonly], .form-control[disabled], fieldset[disabled], .form-control{
 		background-color:white;
 	}
+	
 </style>
 
 <title>Insert title here</title>
@@ -87,7 +88,7 @@
 
 		<form:form action="/home/bbs/modify" method="get" modelAttribute="bbsData">
 			<div class="form-group">
-				<form:label path="title">Title : </form:label> <form:input path="title" readonly="true" value="${bbsData.title}" class="form-control"></form:input>
+				<form:label path="title">Title : </form:label> <form:input path="title" readonly="true" value="${bbsData.title}" class="form-control" style="width:50%" ></form:input>
 			</div>			
 			<div class="form-group">		
 				<form:label path="text">content : </form:label><br>

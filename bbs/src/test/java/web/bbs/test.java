@@ -33,7 +33,7 @@ import com.jayway.jsonpath.internal.Utils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import web.bbs.domain.Example;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -204,11 +204,11 @@ public class test {
 	
 	@Test
 	public void exampleTabel() {
-		Example text = new Example();
-		String hoho = "123";
-		text.setDocs(hoho);
-		System.out.println("text.docs = " + text.getDocs());
-		//repository.save(text.getDocs()); 
+		
+//		String hoho = "123";
+//		text.setDocs(hoho);
+//		System.out.println("text.docs = " + text.getDocs());
+//		//repository.save(text.getDocs()); 
 	}
 	
 	

@@ -14,7 +14,6 @@ import web.bbs.mybatis.MemberMapper;
 @Primary
 @Repository
 @RequiredArgsConstructor
-
 public class MyBatisMemberRepository implements MemberRepository{
 	private final MemberMapper memberMapper;
 	

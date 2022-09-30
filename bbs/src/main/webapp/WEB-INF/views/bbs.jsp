@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial=1">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/css/AtagProperty.css" rel="stylesheet">
+<link href="/css/customStyle.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
@@ -88,22 +88,22 @@
 	<table  class="table table-striped table-hover mx-auto mt-5">
 		
 		<thead>
-			<tr>
+			<tr align="center">
 				<th scope="col">No</th>
 				<th scope="col">제목</th>
 				<th scope="col">글쓴이</th>
 				<th scope="col">작성시간</th>
-				<th scope="col">좋아요</th>
+				<th scope="col">조회수</th>
 			</tr>
 		</thead>
 		<tbody>					
 			<c:forEach items="${bbsDatas}" var="bbsData">																					
-				 <tr>
+				 <tr align="center">
 					<td>${bbsData.id}</td>
 					<td><a href="/home/bbs/bbsData/${bbsData.id}?currentPageNumber=${currentPageNumber}">${bbsData.title}</a></td>
 					<td>${bbsData.author}</td>
 					<td>${bbsData.time}</td>
-					<td>${bbsData.good}</td>					
+					<td>${bbsData.views}</td>					
 				 </tr>				 						 	
 				</c:forEach>				
 			

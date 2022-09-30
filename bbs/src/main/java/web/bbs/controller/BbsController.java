@@ -166,12 +166,12 @@ public class BbsController {
 	}
 	
 	
-	// bbsData view 
-	
+	// bbsData view 	
 	@RequestMapping(value="/bbsData/{bbsDataId}", method = RequestMethod.GET)	
 	public String bbsDataView(@PathVariable("bbsDataId") Long bbsDataId, Model model,
-			@RequestParam("currentPageNumber")Integer currentPageNumber) {
-		BbsData bbsData = bbsService.bbsDataView(bbsDataId);
+			@RequestParam("currentPageNumber")Integer currentPageNumber) {		
+		bbsService.incrementViews(bbsDataId);
+		BbsData bbsData = bbsService.bbsDataView(bbsDataId);		
 		model.addAttribute("bbsData",bbsData);
 		model.addAttribute("bbsDataId", bbsDataId);
 		model.addAttribute("currentPageNumber",currentPageNumber);

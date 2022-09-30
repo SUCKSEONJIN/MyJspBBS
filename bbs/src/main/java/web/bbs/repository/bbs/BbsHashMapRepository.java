@@ -15,7 +15,7 @@ import web.bbs.domain.BbsData;
 import web.bbs.domain.BbsData_update;
 
 @Slf4j
-@Repository
+//@Repository
 public class BbsHashMapRepository implements BbsRepository {
 
 	private final Map<Long, BbsData> repository = new ConcurrentHashMap<>();
@@ -88,6 +88,13 @@ public class BbsHashMapRepository implements BbsRepository {
 		return date;
 		
 	}
+
+	@Override
+	public void updateViews(Long id, Integer views) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	
 }

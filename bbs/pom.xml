@@ -70,12 +70,6 @@
     <version>8.0.28</version>
 </dependency>
 
-<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-<dependency>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis-spring</artifactId>
-    <version>2.0.7</version>
-</dependency>
 <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
 <dependency>
     <groupId>org.mybatis.spring.boot</groupId>
@@ -97,6 +91,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>				
+				<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+				</configuration>				
 			</plugin>
 		
 		</plugins>

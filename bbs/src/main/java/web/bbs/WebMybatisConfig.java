@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import web.bbs.intercepter.LoginInterceptor;
 import web.bbs.intercepter.MemberDtoIntercepter;
 import web.bbs.intercepter.NavInterceptor;
@@ -30,14 +31,16 @@ import web.bbs.repository.member.MemberMySqlRepository;
 import web.bbs.repository.member.MemberRepository;
 import web.bbs.repository.member.MyBatisMemberRepository;
 
-
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class WebMybatisConfig implements WebMvcConfigurer{
 
-	@Autowired
-	private MemberMapper memberMapper;	
-	@Autowired
-	private BbsMybatisMapper bbsMapper;
+	
+	private final MemberMapper memberMapper;
+	private final DataSource dataSource;
+	private final BbsMybatisMapper bbsMapper;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new NavInterceptor())
@@ -60,30 +63,16 @@ public class WebMybatisConfig implements WebMvcConfigurer{
 		
 	}
 	
-	@PostConstruct
+	@Bean
 	public MemberRepository memberRepository() throws ClassNotFoundException {				
-		return new MyBatisMemberRepository( memberMapper);		
+				
+		return new MyBatisMemberRepository(memberMapper);		
 	}
 	
 	@Bean
-	public DataSource dataSource() throws ClassNotFoundException {
-		HikariDataSource dataSource = new HikariDataSource();
-		//getClass().forName("com.mysql.cj.jdbc.Driver");
-		dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/mybbs");
-		dataSource.setUsername("root");
-		dataSource.setPassword("wlq4220**");
-		dataSource.setMaximumPoolSize(10);
-		dataSource.setPoolName("dataPool");
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		return dataSource;
-	}
-			
-	@Bean
-	public BbsRepository bbsRepository() throws ClassNotFoundException {
+	public BbsRepository bbsRepository() throws ClassNotFoundException {		
+				return new MybatisBbsRepository(bbsMapper);
 		
-		BbsRepository bbsRepository = new MybatisBbsRepository(bbsMapper);
-		return bbsRepository;
-				
 	}
 	
 }

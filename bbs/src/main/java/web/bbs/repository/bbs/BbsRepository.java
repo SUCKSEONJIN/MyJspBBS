@@ -15,5 +15,5 @@ public interface BbsRepository {
 	public void update(Long id, BbsData_update bbsData);
 	public List<BbsData> findAll(BbsData bbsData);
 	public Optional<BbsData> findById(Long id);
-
+	public void updateViews(Long id, Integer views);
 }

@@ -28,9 +28,10 @@ import web.bbs.domain.BbsData;
 import web.bbs.domain.BbsDataCond;
 import web.bbs.domain.BbsData_update;
 
-@Primary
+//@Primary
 @Slf4j
-@Repository
+//@Repository
+
 public class BbsMysqlRepository implements BbsRepository{
 
 	private final NamedParameterJdbcTemplate template;
@@ -117,6 +118,12 @@ public class BbsMysqlRepository implements BbsRepository{
 		}
 			
 				
+	}
+
+	@Override
+	public void updateViews(Long id, Integer views) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
