@@ -9,7 +9,7 @@
 </insert>
 
 <update id= "update">
-update bbs set title=#{title}, text=#{text}, time=#{time} 
+update bbs set title=#{bbsData.title}, text=#{bbsData.text}, time=#{bbsData.time} 
 <where>
 	<if test="id != null">
 		id = #{id}

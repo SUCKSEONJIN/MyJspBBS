@@ -76,6 +76,7 @@
 		</script>
 
 		<form:form action="/home/bbs/modify" method="post" modelAttribute="bbsData">
+		 <div class="mx-auto" style="width:50%">
 			<div class="form-group">
 				<form:label path="title">Title : </form:label> <form:input path="title" value="${bbsData.title}" class="form-control"></form:input>
 			</div>			
@@ -91,7 +92,8 @@
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="확인" name="check">
 				<input type="submit" class="btn btn-primary" value="목록" name="list"> 
-			</div>			
+			</div>
+		 </div>			
 		</form:form>		
 			
 				

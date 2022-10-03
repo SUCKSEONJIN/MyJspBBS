@@ -78,7 +78,9 @@
 
 			
 
-		<form:form action="/home/bbs/write" method="post" modelAttribute="bbsData">
+		<form:form action="/home/bbs/write" method="post" modelAttribute="bbsData" >
+			
+		<div class="mx-auto" style="width:50%;" >
 			<div class="form-group">
 				<form:label path="title">Title : </form:label> <form:input path="title" class="form-control"/>
 			</div>			
@@ -91,11 +93,10 @@
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
 			<div class="form-group">				
-				<input type="button" class="btn btn-primary ml-4" onclick="location.href='/home/bbs'" value="취소" > 
+				<input type="button" class="btn btn-primary ml-4 float-right" onclick="location.href='/home/bbs'" value="취소" > 			
+				<input type="submit" class="btn btn-primary float-right" value="확인">
 			</div>
-			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="확인">
-			</div>
+		</div>
 		</form:form>		
 			
 				

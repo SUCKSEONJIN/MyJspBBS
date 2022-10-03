@@ -84,8 +84,10 @@
 			
 	
 <div class="container">
+	
+	<h5 align="left" class="mt-5 mb-3">page <span style="color: blue;">${currentPageNumber}</span>  / ${pageNumberLast}</h5>				
 	<div class="row">
-	<table  class="table table-striped table-hover mx-auto mt-5">
+	<table  class="table table-striped table-hover mx-auto ">
 		
 		<thead>
 			<tr align="center">
@@ -96,8 +98,8 @@
 				<th scope="col">조회수</th>
 			</tr>
 		</thead>
-		<tbody>					
-			<c:forEach items="${bbsDatas}" var="bbsData">																					
+		<tbody>	
+			<c:forEach items="${bbsDatas}" var="bbsData">																									
 				 <tr align="center">
 					<td>${bbsData.id}</td>
 					<td><a href="/home/bbs/bbsData/${bbsData.id}?currentPageNumber=${currentPageNumber}">${bbsData.title}</a></td>
@@ -108,9 +110,10 @@
 				</c:forEach>				
 			
 		</tbody>
-	</table>
-			<form action="/home/bbs/page" method="post">
-				<button type="submit" name="previous">이전</button>
+	</table>		
+		
+			<form action="/home/bbs/page" method="post" align="center">								
+				<button type="submit" name="previous">이전</button>				
 				<input type="hidden" value="${num}" name="count">
 				<input type="hidden" value="${num + i}" name="pageNum">
 				<input type="hidden" value="${originalLast}" name="originalLast"/>
@@ -118,9 +121,8 @@
 				<c:forEach var="i"  begin="1" end="${pageNumberLast}">
 					<a href="/home/bbs/<c:out value='${i+num}'/>"><c:out value="${i+num}"/></a>
 				</c:forEach>
-				<button type="submit" name="next" >다음</button>
+				<button type="submit" name="next" >다음</button>			
 			</form>
-		
 		<div class="col">
 			<form action="/home/bbs/write" method="get">
 				<button class="float-right" type="submit" >작성</button>

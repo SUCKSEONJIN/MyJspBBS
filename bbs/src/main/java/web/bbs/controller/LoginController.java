@@ -27,7 +27,6 @@ import web.bbs.service.LoginService;
 @RequestMapping("/home/login")
 public class LoginController {
 
-	private final MemberRepository memberRepository;	
 	private final LoginService loginService;
 	
 	@GetMapping("/form")
