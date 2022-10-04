@@ -30,9 +30,8 @@ public class MybatisBbsRepository implements BbsRepository{
 	}
 
 	@Override
-	public List<BbsData> searchByTitle(String title) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BbsData> searchByTitle(String title) {		
+		return mapper.searchByTitle(title);
 	}
 
 	@Override

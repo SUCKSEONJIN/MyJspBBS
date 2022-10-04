@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.BbsData;
+import web.bbs.domain.BbsDataCond;
 import web.bbs.domain.BbsData_update;
 import web.bbs.domain.Member;
 import web.bbs.repository.member.MemberRepository;
@@ -92,7 +93,8 @@ public class BbsController {
 		model.addAttribute("pageNumberLast",pageNumberLast);
 		model.addAttribute("originalLast", originalNumberLast);
 		model.addAttribute("pageNumberFirst", pageNumberFirst);
-
+		model.addAttribute("bbsDataCond", new BbsDataCond());
+		
 		return "bbs";
 	}
 	
@@ -270,6 +272,20 @@ public class BbsController {
 		return "redirect:/home/bbs/{currentPageNumber}";
 	}
 	
+	
+	
+	
+	// 검색 기능
+	
+	
+	@PostMapping("/search")
+	public String bbsSearch(RedirectAttributes redirect, Model model,
+			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataConde) {
+		
+		
+			
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
 	
 	
 	

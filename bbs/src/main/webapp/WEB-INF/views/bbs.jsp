@@ -86,7 +86,18 @@
 			
 	
 <div class="container">		
-	<h5 align="left" class="mt-5 mb-3">page <span style="color: blue;">${currentPageNumber}</span>  / ${originalLast}</h5>				
+	<form:form action="/home/bbs/search" method="post" modelAttribute="bbsDataCond" >
+	<div align="right" class="mb-3">
+	<h5 align="left" class="mt-3 mb-3">page <span style="color: blue;">${currentPageNumber}</span>  / ${originalLast}</h5>
+		<form:select path="searchType">
+			<form:option name="title" value="제목"></form:option>
+			<form:option name="author" value="글쓴이"></form:option>
+			<button inputmode="text"></button>
+		</form:select>
+		<form:input path="search" placeholder="검색어를 입력하세요" ></form:input>
+		<form:button>Search</form:button>
+	</div>				
+	</form:form>
 	<div class="row">
 	<table  class="table table-striped table-hover mx-auto ">
 		

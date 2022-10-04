@@ -36,6 +36,22 @@ select * from bbs
 </where>
 </select> 
 
+<select id="searchByTitle" resultType="BbsData">
+	select * from bbs
+	<where>
+		<if test="id != null">
+			id = #{id}
+		</if>		
+		<if test = "title != null">
+			and title like concat("%",#{title},"%") 			 	
+		</if>			
+	</where>
+		
+	 
+	
+</select>
+
+
 <select id="findAll" resultType="BbsData">
 	select * from bbs
 		
