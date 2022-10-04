@@ -38,19 +38,16 @@ public class BbsController {
 	private final MemberRepository memberRepository;
 	private final BbsService bbsService;
 	
-	private Integer pageNumberLast = 0;
-
+	
+	
 	@RequestMapping("/{currentPageNumber}")
-	public String viewBbs(@PathVariable("currentPageNumber") Integer currentPageNumber,HttpServletRequest request, Model model){		
+	public String viewBbs(@PathVariable("currentPageNumber") Integer currentPageNumber,HttpServletRequest request, Model model,								
+				@RequestParam(value="pageJump", required=false) Integer pageJump){		
 		Member member = (Member)request.getAttribute("member");
 		List<BbsData> list = bbsService.bbsDataSum();
-		List<BbsData> subList = null;
+		List<BbsData> subList = null;		
 		int size = list.size();
-		if(size/10 == 0) {
-			pageNumberLast = size / 10;		
-		}else {
-			pageNumberLast = size / 10 + 1;
-		}
+	
 		int lastIndex = size-1;
 		int oneValue = bbsService.intOneValueExtract(size);
 		int lastLimit = 9+(10*(currentPageNumber-1));
@@ -64,9 +61,53 @@ public class BbsController {
 		model.addAttribute("bbsDatas", subList);
 		model.addAttribute("currentPageNumber",currentPageNumber);			
 		model.addAttribute("num",0);			
+		
+		//페이징 숫자 view 5개로 제한		
+		Integer originalNumberLast;	
+		Integer pageNumberFirst;
+		Integer pageNumberLast;
+		
+		if(pageJump == null) {
+			pageJump = 0;
+		}
+		
+		log.info("pageJump={}",pageJump);
+		if(size/10 == 0) {
+			originalNumberLast = size / 10;		
+		}else {
+			originalNumberLast = size / 10 + 1;	}								
+		log.info("이곳originalNumber = {}" ,originalNumberLast);
+		Integer numArrayAssistValue = (currentPageNumber / 6) + pageJump;
+		
+		if(numArrayAssistValue < 0) {
+			numArrayAssistValue = 0;
+		}
+		
+		pageNumberFirst = 1 + (numArrayAssistValue * 5); 	
+		pageNumberLast = 5 +(numArrayAssistValue * 5); 
+		if(originalNumberLast <= pageNumberLast) {
+			pageNumberLast = originalNumberLast;
+		}
+
+		model.addAttribute("pageNumberLast",pageNumberLast);
+		model.addAttribute("originalLast", originalNumberLast);
+		model.addAttribute("pageNumberFirst", pageNumberFirst);
 
 		return "bbs";
 	}
+	
+	@GetMapping("/minusPageJump/{currentPageNumber}")
+	public String pageJumpMinusValue(RedirectAttributes redirect,@PathVariable("currentPageNumber") Integer currentPageNumber ) {			
+			redirect.addAttribute("pageJump", -1);	
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
+	
+	@GetMapping("/plusPageJump/{currentPageNumber}")
+	public String pageJumpPlusValue(RedirectAttributes redirect,@PathVariable("currentPageNumber") Integer currentPageNumber ) {			
+			redirect.addAttribute("pageJump", +1);	
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
+	
 	
 	@GetMapping("/write")
 	public String inputBbs(@ModelAttribute("bbsData") BbsData bbsData, HttpServletRequest request, 
@@ -107,30 +148,27 @@ public class BbsController {
 	@ModelAttribute
 	public void pageNumberVarible(Model model) {
 		
-		List<BbsData> list = bbsService.bbsDataSum();
-		
+		List<BbsData> list = bbsService.bbsDataSum();					
+		Integer originalNumberLast;
 		int size = list.size();
 		if(size/10 == 0) {
-			pageNumberLast = size / 10;		
+			originalNumberLast = size / 10;		
 		}else {
-			pageNumberLast = size / 10 + 1;
+			originalNumberLast = size / 10 + 1;
 		}
 		
-		Integer numberViewLimit = 5;
+	
+		model.addAttribute("originalLast", originalNumberLast);		
 		
-		if(pageNumberLast > numberViewLimit) {
-			model.addAttribute("pageNumberLast",numberViewLimit);
-		}else{
-			log.info("pageNumberLast 값 : {}", pageNumberLast);
-			model.addAttribute("pageNumberLast",pageNumberLast);		
-		}
-		model.addAttribute("originalLast", pageNumberLast);
 	}
 	
 	
 	@PostMapping(value="/page", params="previous")
 	public String sendStat(@RequestParam(value="count", required=false) Integer count,Model model,@RequestParam(value="pageNum", required=false) Integer pageNum,
-			@RequestParam(value="currentPageNumber", required = false) Integer currentPageNumber,RedirectAttributes redirect) {
+			@RequestParam(value="currentPageNumber", required = false) Integer currentPageNumber,RedirectAttributes redirect,
+			@RequestParam(value="paramPageNumberLast", required = false) Integer paramPageNumberLast,
+			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst
+			) {
 		log.info("rest값 ={}",pageNum);
 		if(pageNum > 0) {
 			redirect.addAttribute("num", count-1);				
@@ -141,14 +179,18 @@ public class BbsController {
 		int minus; 
 		if(currentPageNumber > 1) minus = -1;else {minus=0;} 						
 		redirect.addAttribute("currentPageNumber", currentPageNumber+minus);
+		redirect.addAttribute("paramPageNumberLast",paramPageNumberLast);
 		return "redirect:/home/bbs/{currentPageNumber}";// pageNumber값 아직 받지 못했음.
 	}
 	
 	@PostMapping(value="/page", params="next")
 	public String sendStatPost(Model model,@RequestParam(value= "count", required=false) Integer count,
 			RedirectAttributes redirect, @RequestParam(value="originalLast", required=false)Integer originalLast,
-			@RequestParam(value="pageNum", required=false) Integer pageNum,@RequestParam(value="currentPageNumber", required=false) Integer currentPageNumber
-			) {
+			@RequestParam(value="pageNum", required=false) Integer pageNum,@RequestParam(value="currentPageNumber", required=false) Integer currentPageNumber,
+			@RequestParam(value="paramPageNumberLast", required = false) Integer paramPageNumberLast,
+			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst
+			)
+			 {
 			
 		if(originalLast > 5 && (pageNum+5) < originalLast) {			
 			redirect.addAttribute("num",count+1);					
@@ -161,6 +203,7 @@ public class BbsController {
 		if(originalLast > currentPageNumber) add = 1;else add = 0;
 		log.info("oiriginallast value:{}",originalLast);
 		
+		redirect.addAttribute("paramPageNumberLast",paramPageNumberLast);
 		redirect.addAttribute("currentPageNumber",currentPageNumber+add);
 		return "redirect:/home/bbs/{currentPageNumber}";//pgaeNumber값 아직 받지 못했음. 
 	}
