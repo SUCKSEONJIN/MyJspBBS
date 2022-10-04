@@ -260,7 +260,17 @@ public class BbsController {
 		return "redirect:/home/bbs/{currentPageNumber}";
 	}
 	
-
+	@PostMapping(value="/modify",params="delete")
+	public String bbsDataModifyDelete(RedirectAttributes redirect,
+			@RequestParam("currentPageNumber") Integer currentPageNumber, 
+			HttpServletRequest request) {
+		Member member = (Member)request.getAttribute("member");
+		bbsService.deleteBbsData(member.getId());
+		redirect.addAttribute("currentPageNumber",currentPageNumber);
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
+	
+	
 	
 	
 }

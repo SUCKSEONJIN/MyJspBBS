@@ -89,12 +89,21 @@
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>						
 				<form:hidden path="id" value="${bbsData.id}"/>					
-			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="확인" name="check">
-				<input type="submit" class="btn btn-primary" value="목록" name="list"> 
+			<div class="form-group">			
+				<
+				<input type="submit" class="btn btn-primary float-right ml-3" value="확인" name="check">
+				<input type="submit" class="btn btn-primary float-right ml-3" value="삭제" name="delete" onclick=deleteAlert()>
+				<input type="submit" class="btn btn-primary float-right ml-3" value="목록" name="list"> 
 			</div>
 		 </div>			
 		</form:form>		
+	
+<script>
+	function deleteAlert(){
+		alert("글이 삭제 되었습니다.");
+	}
+</script>
+
 			
 				
 	

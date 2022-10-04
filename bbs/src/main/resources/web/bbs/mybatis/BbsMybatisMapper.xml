@@ -41,6 +41,15 @@ select * from bbs
 		
 </select>
 
+<delete id="remove" >
+	delete from bbs
+	<where>
+		<if test="id != null">
+			 id = #{id} 
+		</if>
+	</where>
+</delete>
+
 
 
 </mapper>

@@ -70,4 +70,8 @@ public class BbsService {
 		
 	}
 	
+	public void deleteBbsData(Long id) {
+		bbsRepository.remove(id);
+	}
+	
 }

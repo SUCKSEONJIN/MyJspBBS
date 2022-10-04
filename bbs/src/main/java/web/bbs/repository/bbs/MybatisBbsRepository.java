@@ -25,7 +25,7 @@ public class MybatisBbsRepository implements BbsRepository{
 
 	@Override
 	public void remove(Long id) {
-		// TODO Auto-generated method stub
+		mapper.remove(id);
 		
 	}
 
