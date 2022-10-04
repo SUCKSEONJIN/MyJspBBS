@@ -7,5 +7,6 @@ import lombok.Setter;
 public class BbsDataCond {
 	private String title;
 	private String author;
-	
+	private String searchType; 
+	private String search;
 }

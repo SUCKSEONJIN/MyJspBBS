@@ -25,14 +25,13 @@ public class MybatisBbsRepository implements BbsRepository{
 
 	@Override
 	public void remove(Long id) {
-		// TODO Auto-generated method stub
+		mapper.remove(id);
 		
 	}
 
 	@Override
-	public List<BbsData> searchByTitle(String title) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BbsData> searchByTitle(String title) {		
+		return mapper.searchByTitle(title);
 	}
 
 	@Override

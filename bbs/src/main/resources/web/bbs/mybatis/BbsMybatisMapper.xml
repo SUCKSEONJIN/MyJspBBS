@@ -9,7 +9,7 @@
 </insert>
 
 <update id= "update">
-update bbs set title=#{title}, text=#{text}, time=#{time} 
+update bbs set title=#{bbsData.title}, text=#{bbsData.text}, time=#{bbsData.time} 
 <where>
 	<if test="id != null">
 		id = #{id}
@@ -36,10 +36,35 @@ select * from bbs
 </where>
 </select> 
 
+<select id="searchByTitle" resultType="BbsData">
+	select * from bbs
+	<where>
+		<if test="id != null">
+			id = #{id}
+		</if>		
+		<if test = "title != null">
+			and title like concat("%",#{title},"%") 			 	
+		</if>			
+	</where>
+		
+	 
+	
+</select>
+
+
 <select id="findAll" resultType="BbsData">
 	select * from bbs
 		
 </select>
+
+<delete id="remove" >
+	delete from bbs
+	<where>
+		<if test="id != null">
+			 id = #{id} 
+		</if>
+	</where>
+</delete>
 
 
 

@@ -87,6 +87,7 @@
 			
 
 		<form:form action="/home/bbs/modify" method="get" modelAttribute="bbsData">
+		<div class="mx-auto" style="width:50%;">
 			<div class="form-group">
 				<form:label path="title">Title : </form:label> <form:input path="title" readonly="true" value="${bbsData.title}" class="form-control" style="width:50%" ></form:input>
 			</div>			
@@ -103,14 +104,14 @@
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
 			<div class="form-group">
 				<c:if test="${member.userId == bbsData.author}">
-					<input type="submit" class="btn btn-primary" value="수정" name="modify">												
+					<input type="submit" class="btn btn-primary float-right ml-4" value="수정" name="modify">												
 				</c:if>
-				<input type="submit" class="btn btn-primary" value="목록" name="list">
+				<input type="submit" class="btn btn-primary float-right" value="목록" name="list">
 			</div>
 			<div>
 				<form:hidden path="id"></form:hidden>
 			</div>
-			
+		 </div>
 		</form:form>		
 			
 				

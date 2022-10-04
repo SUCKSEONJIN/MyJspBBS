@@ -51,8 +51,8 @@
   </div>
 </nav>
 
-<form:form action="/home/signUp/form" method="Post" modelAttribute="member" style="width:50%" class="mx-auto" >
-	<div class="mx-auto">
+<form:form action="/home/signUp/form" method="Post" modelAttribute="member"  >
+	<div style="width:50%" class="mx-auto">
 			
 		<div class= "form-group" align="center">
 			<h1>Sign up</h1>

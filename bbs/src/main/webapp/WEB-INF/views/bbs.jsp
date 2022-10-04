@@ -18,6 +18,11 @@
 
 <title>Insert title here</title>
 
+
+<style>
+
+</style>
+
 </head>
 <body>
 
@@ -46,23 +51,20 @@
         <a class="nav-link dropdown-toggle ml-auto" href="#" role="button" data-toggle="dropdown" aria-expanded="true">
           List
         </a>        
-        <div class="dropdown-menu ">
+        <div class="dropdown-menu">  
         	<c:if test="${sess == null or sessionScope.member == null}">
 	          <a class="dropdown-item" href="${logInUri}">LogIn</a>
 	          <a class="dropdown-item" href="${signUpUri}">Join</a>
 	        </c:if>
 	        <c:if test="${sess != null and sessionScope.member != null}">
-	        	<button class="dropdown-item" onclick="getAlert()">LogOut</button>
-	        </c:if>
-	                  
+	          <button class="dropdown-item" onclick="getAlert()">LogOut</button>
+	        </c:if>	                  	        	        	        	        	     
         </div>       
       </li>     
     </ul>
-  </div>
-  
- <c:if test="${sess != null and sessionScope.member != null}"><a href="/home/memberInfo"> ${sessionScope.member.userId}님</a></c:if>
-</nav>
-	
+  </div>      
+<c:if test="${sess != null and sessionScope.member != null}"><a href="/home/memberInfo"> ${sessionScope.member.userId}님</a></c:if>
+</nav>	
 	<c:if test="${check}">
 		<script>
 			alert("로그인 성공")
@@ -83,9 +85,21 @@
 
 			
 	
-<div class="container">
+<div class="container">		
+	<form:form action="/home/bbs/search" method="post" modelAttribute="bbsDataCond" >
+	<div align="right" class="mb-3">
+	<h5 align="left" class="mt-3 mb-3">page <span style="color: blue;">${currentPageNumber}</span>  / ${originalLast}</h5>
+		<form:select path="searchType">
+			<form:option name="title" value="제목"></form:option>
+			<form:option name="author" value="글쓴이"></form:option>
+			<button inputmode="text"></button>
+		</form:select>
+		<form:input path="search" placeholder="검색어를 입력하세요" ></form:input>
+		<form:button>Search</form:button>
+	</div>				
+	</form:form>
 	<div class="row">
-	<table  class="table table-striped table-hover mx-auto mt-5">
+	<table  class="table table-striped table-hover mx-auto ">
 		
 		<thead>
 			<tr align="center">
@@ -96,8 +110,8 @@
 				<th scope="col">조회수</th>
 			</tr>
 		</thead>
-		<tbody>					
-			<c:forEach items="${bbsDatas}" var="bbsData">																					
+		<tbody>	
+			<c:forEach items="${bbsDatas}" var="bbsData">																									
 				 <tr align="center">
 					<td>${bbsData.id}</td>
 					<td><a href="/home/bbs/bbsData/${bbsData.id}?currentPageNumber=${currentPageNumber}">${bbsData.title}</a></td>
@@ -105,30 +119,37 @@
 					<td>${bbsData.time}</td>
 					<td>${bbsData.views}</td>					
 				 </tr>				 						 	
-				</c:forEach>				
-			
+			</c:forEach>							
 		</tbody>
-	</table>
-			<form action="/home/bbs/page" method="post">
-				<button type="submit" name="previous">이전</button>
+	</table>	
+			<form action="/home/bbs/page" method="post" align="center">		
+				<a href="/home/bbs/minusPageJump/${currentPageNumber}" class="mr-3">&lt&lt</a>						
+				<button type="submit" name="previous">이전</button>				
 				<input type="hidden" value="${num}" name="count">
 				<input type="hidden" value="${num + i}" name="pageNum">
 				<input type="hidden" value="${originalLast}" name="originalLast"/>
 				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber"/>
-				<c:forEach var="i"  begin="1" end="${pageNumberLast}">
-					<a href="/home/bbs/<c:out value='${i+num}'/>"><c:out value="${i+num}"/></a>
+				<c:forEach var="i"  begin="${pageNumberFirst}" end="${pageNumberLast}">										
+					<c:choose>
+					 <c:when test="${currentPageNumber == i+num}">					 
+					<a id="${i+num}" href="/home/bbs/<c:out value='${i+num}'/>"><span style="color: blue;">${i+num}</span></a>
+					</c:when>
+					<c:when test="${currentPageNumber != i+num}">
+					<a id="${i+num}" href="/home/bbs/<c:out value='${i+num}'/>">${i+num}</a>
+					</c:when>
+					</c:choose>					
 				</c:forEach>
 				<button type="submit" name="next" >다음</button>
+				<a href="/home/bbs/plusPageJump/${currentPageNumber}" class="ml-3">&gt&gt</a>			
 			</form>
-		
-		<div class="col">
-			<form action="/home/bbs/write" method="get">
-				<button class="float-right" type="submit" >작성</button>
+		 <div class="col">
+			 <form action="/home/bbs/write" method="get">
+				<button class="float-right" type="submit">작성</button>
 				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber">
-			</form>			
-		</div>
-		
+			 </form>			
+		 </div>		
 	</div>
 </div>
+
 </body>
 </html>

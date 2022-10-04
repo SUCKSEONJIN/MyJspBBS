@@ -4,8 +4,10 @@ package web.bbs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.byteThat;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -209,6 +211,15 @@ public class test {
 //		text.setDocs(hoho);
 //		System.out.println("text.docs = " + text.getDocs());
 //		//repository.save(text.getDocs()); 
+	}
+	
+	@Test
+	public void toByte() throws UnsupportedEncodingException {
+		String temp = "hello";
+						
+		char[] charArray = temp.toCharArray();		
+		byte[] bytes = temp.getBytes("UTF-8");
+		System.out.println();
 	}
 	
 	
