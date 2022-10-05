@@ -6,11 +6,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import web.bbs.domain.BbsData;
 import web.bbs.domain.BbsData_update;
 import web.bbs.mybatis.BbsMybatisMapper;
 
-
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MybatisBbsRepository implements BbsRepository{
@@ -26,6 +27,7 @@ public class MybatisBbsRepository implements BbsRepository{
 	@Override
 	public void remove(Long id) {
 		mapper.remove(id);
+		log.info("마이바티스 제거");
 		
 	}
 

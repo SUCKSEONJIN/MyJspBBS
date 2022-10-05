@@ -93,8 +93,8 @@
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>
 			<div class="form-group">				
-				<input type="button" class="btn btn-primary ml-4 float-right" onclick="location.href='/home/bbs'" value="취소" > 			
-				<input type="submit" class="btn btn-primary float-right" value="확인">
+				<input type="submit" class="btn btn-primary ml-4 float-right" value="취소" name="cancel" > 			
+				<input type="submit" class="btn btn-primary float-right" value="확인" name="check">
 			</div>
 		</div>
 		</form:form>		

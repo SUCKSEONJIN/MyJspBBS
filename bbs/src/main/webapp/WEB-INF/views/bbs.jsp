@@ -95,6 +95,7 @@
 			<button inputmode="text"></button>
 		</form:select>
 		<form:input path="search" placeholder="검색어를 입력하세요" ></form:input>
+		<form:hidden path="${currentPageNumber}"/>
 		<form:button>Search</form:button>
 	</div>				
 	</form:form>

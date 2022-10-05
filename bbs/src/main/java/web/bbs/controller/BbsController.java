@@ -43,10 +43,17 @@ public class BbsController {
 	
 	@RequestMapping("/{currentPageNumber}")
 	public String viewBbs(@PathVariable("currentPageNumber") Integer currentPageNumber,HttpServletRequest request, Model model,								
-				@RequestParam(value="pageJump", required=false) Integer pageJump){		
+				@RequestParam(value="pageJump", required=false) Integer pageJump,
+				@RequestParam(value="searchList", required=false) List<BbsData> searchList) {		
 		Member member = (Member)request.getAttribute("member");
-		List<BbsData> list = bbsService.bbsDataSum();
-		List<BbsData> subList = null;		
+		List<BbsData> list;
+		List<BbsData> subList;
+		if(searchList == null) {
+			list = bbsService.bbsDataSum();				
+		}else {
+			list = searchList;
+		}
+		
 		int size = list.size();
 	
 		int lastIndex = size-1;
@@ -67,28 +74,39 @@ public class BbsController {
 		Integer originalNumberLast;	
 		Integer pageNumberFirst;
 		Integer pageNumberLast;
-		
+		Integer numArrayAssistValue;
 		if(pageJump == null) {
 			pageJump = 0;
 		}
 		
 		log.info("pageJump={}",pageJump);
 		if(size/10 == 0) {
-			originalNumberLast = size / 10;		
+			originalNumberLast = size / 10 + 1 ;		
 		}else {
 			originalNumberLast = size / 10 + 1;	}								
 		log.info("이곳originalNumber = {}" ,originalNumberLast);
-		Integer numArrayAssistValue = (currentPageNumber / 6) + pageJump;
+		 
+		
+		if(currentPageNumber % 5 == 0){
+			numArrayAssistValue = currentPageNumber / 5 -1 + pageJump;
+		}else {
+			numArrayAssistValue = (currentPageNumber / 5) + pageJump;
+		}
 		
 		if(numArrayAssistValue < 0) {
 			numArrayAssistValue = 0;
 		}
 		
-		pageNumberFirst = 1 + (numArrayAssistValue * 5); 	
+		pageNumberFirst = 1 + (numArrayAssistValue * 5);
+		if(pageNumberFirst > originalNumberLast) {
+			pageNumberFirst = pageNumberFirst-1;
+		}
+		log.info("pageNumberFirst = {}", pageNumberFirst);
 		pageNumberLast = 5 +(numArrayAssistValue * 5); 
 		if(originalNumberLast <= pageNumberLast) {
 			pageNumberLast = originalNumberLast;
 		}
+		log.info("pageNumberLast = {}", pageNumberLast);
 
 		model.addAttribute("pageNumberLast",pageNumberLast);
 		model.addAttribute("originalLast", originalNumberLast);
@@ -125,13 +143,14 @@ public class BbsController {
 		return "bbsInputForm";
 	}
 
-	@PostMapping("/write")
+	@PostMapping(value = "/write", params = "check")
 	public String inputBbs_logic(@Valid @ModelAttribute("bbsData") BbsData bbsData, BindingResult result, HttpServletRequest request,
 			@RequestParam(value="currentPageNumber", required=false) Integer currentPageNumber,
 			RedirectAttributes redirect) {
 		
 		if(result.hasErrors() == true) {
-			return "bbsInputForm";
+			redirect.addAttribute("currentPageNumber",currentPageNumber);
+			return "redirect:/home/bbs/write";
 		}
 		bbsData.setTime(createTime());
 		redirect.addAttribute("currentPageNumber",currentPageNumber);
@@ -139,6 +158,11 @@ public class BbsController {
 		return "redirect:/home/bbs/{currentPageNumber}";
 	}	
 	
+	@PostMapping(value="/write" , params="cancel")
+	public String inputBbs_cancel(RedirectAttributes redirect, @RequestParam("currentPageNumber") Integer currentPageNumber) {
+		redirect.addAttribute("currentPageNumber",currentPageNumber);
+		return "redirect:/home/bbs/{currentPageNumber}";
+	}
 	public String createTime() {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
@@ -242,8 +266,12 @@ public class BbsController {
 	}
 	
 	@PostMapping(value="/modify",params="check")
-	public String bbsDataModifyCheck(@ModelAttribute("bbsData")BbsData bbsData,Model model,
+	public String bbsDataModifyCheck(@Valid @ModelAttribute("bbsData")BbsData bbsData,BindingResult result, Model model,
 			@RequestParam("currentPageNumber") Integer currentPageNumber, RedirectAttributes redirect) {
+		if(result.hasErrors() == true) {
+			redirect.addAttribute("currentPageNumber", currentPageNumber);
+			return "redirect:/home/bbs/modify";
+		}
 		BbsData_update updateData = new BbsData_update();
 		updateData.setTitle(bbsData.getTitle());
 		updateData.setText(bbsData.getText());
@@ -265,23 +293,24 @@ public class BbsController {
 	@PostMapping(value="/modify",params="delete")
 	public String bbsDataModifyDelete(RedirectAttributes redirect,
 			@RequestParam("currentPageNumber") Integer currentPageNumber, 
-			HttpServletRequest request) {
-		Member member = (Member)request.getAttribute("member");
-		bbsService.deleteBbsData(member.getId());
+			@RequestParam("id") Long id) {
+		bbsService.deleteBbsData(id);
 		redirect.addAttribute("currentPageNumber",currentPageNumber);
 		return "redirect:/home/bbs/{currentPageNumber}";
 	}
 	
-	
-	
-	
-	// 검색 기능
-	
-	
+		
+	// 검색 기능	
 	@PostMapping("/search")
 	public String bbsSearch(RedirectAttributes redirect, Model model,
-			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataConde) {
-		
+			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataCond,
+			@RequestParam("currentPageNumber") Integer currentPageNumber) {
+			
+		if(bbsDataCond.getSearchType() == "title") {
+			List<BbsData> searchList = bbsService.searchByTitle(bbsDataCond.getSearch());
+			redirect.addAttribute("searchList",searchList);
+		}
+			redirect.addAttribute("currentPageNumber",currentPageNumber);
 		
 			
 		return "redirect:/home/bbs/{currentPageNumber}";

@@ -89,8 +89,7 @@
 			</div>
 			<div><input type="hidden" value="${currentPageNumber}" name="currentPageNumber" ></div>						
 				<form:hidden path="id" value="${bbsData.id}"/>					
-			<div class="form-group">			
-				<
+			<div class="form-group">							
 				<input type="submit" class="btn btn-primary float-right ml-3" value="확인" name="check">
 				<input type="submit" class="btn btn-primary float-right ml-3" value="삭제" name="delete" onclick=deleteAlert()>
 				<input type="submit" class="btn btn-primary float-right ml-3" value="목록" name="list"> 

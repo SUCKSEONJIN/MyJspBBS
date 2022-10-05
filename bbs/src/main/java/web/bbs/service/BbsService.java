@@ -74,4 +74,7 @@ public class BbsService {
 		bbsRepository.remove(id);
 	}
 	
+	public List<BbsData> searchByTitle(String title){
+		return bbsRepository.searchByTitle(title);
+	}
 }
