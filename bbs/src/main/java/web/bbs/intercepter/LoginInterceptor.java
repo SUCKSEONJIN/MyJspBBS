@@ -28,6 +28,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 		log.info("여기 reqeust.url값 : {}" , request.getRequestURL() );
 		log.info("request.getQueryString:{}", request.getQueryString());
 		log.info("request.getparameter;{}", request.getParameterNames());
+				
+		String bbsUrl = "/home/bbs/";
+		if(requestURI.contains(bbsUrl) == true ) {
+			requestURI = "/home/bbs/1";
+		}
+		
 		if(session == null || session.getAttribute(SessionConst.Login_session) == null) {
 			if(queryString != null) {
 				response.sendRedirect("/home/login/form?redirectURL=" + requestURI+"?" + queryString);	

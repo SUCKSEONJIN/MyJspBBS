@@ -38,9 +38,7 @@ public class BbsController {
 				
 	private final MemberRepository memberRepository;
 	private final BbsService bbsService;
-	
-	
-	
+
 	@RequestMapping("/{currentPageNumber}")
 	public String viewBbs(@PathVariable("currentPageNumber") Integer currentPageNumber,HttpServletRequest request, Model model,								
 				@RequestParam(value="pageJump", required=false) Integer pageJump,
@@ -49,11 +47,13 @@ public class BbsController {
 		List<BbsData> list;
 		List<BbsData> subList;
 		if(searchList == null) {
-			list = bbsService.bbsDataSum();				
+			list = bbsService.bbsDataSum();	
+			log.info("ok list ={} ", list);
 		}else {
 			list = searchList;
+			log.info("값들어옴");
 		}
-		
+		//list = bbsService.bbsDataSum();
 		int size = list.size();
 	
 		int lastIndex = size-1;
@@ -107,11 +107,11 @@ public class BbsController {
 			pageNumberLast = originalNumberLast;
 		}
 		log.info("pageNumberLast = {}", pageNumberLast);
-
 		model.addAttribute("pageNumberLast",pageNumberLast);
 		model.addAttribute("originalLast", originalNumberLast);
 		model.addAttribute("pageNumberFirst", pageNumberFirst);
-		model.addAttribute("bbsDataCond", new BbsDataCond());
+		BbsDataCond bbsDataCond = new BbsDataCond();
+		model.addAttribute("bbsDataCond", bbsDataCond);
 		
 		return "bbs";
 	}
@@ -306,8 +306,10 @@ public class BbsController {
 			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataCond,
 			@RequestParam("currentPageNumber") Integer currentPageNumber) {
 			
+		log.info("bbsDataCond = {}",bbsDataCond.toString());
 		if(bbsDataCond.getSearchType() == "title") {
 			List<BbsData> searchList = bbsService.searchByTitle(bbsDataCond.getSearch());
+			log.info("searchList.size = {}", searchList.size());
 			redirect.addAttribute("searchList",searchList);
 		}
 			redirect.addAttribute("currentPageNumber",currentPageNumber);

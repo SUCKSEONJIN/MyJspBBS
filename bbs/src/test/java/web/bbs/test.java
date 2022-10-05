@@ -222,6 +222,19 @@ public class test {
 		System.out.println();
 	}
 	
+	@Test
+	public void requestUrlPattern() {
+		String requestUrlFormat = "/home/bbs/";
+		String requestUrlFormat1 = "/home/bbs/mp";
+		boolean contains = requestUrlFormat1.contains(requestUrlFormat);
+		
+		log.info("comparet = {}", contains );
+		StringBuffer buffer = new StringBuffer();		
+		String requestUrl1 = "/home/bbs/1/";
+		String formatString = String.format(requestUrlFormat, requestUrl1);
+		
+		log.info("formatString = {}", formatString);
+	}
 	
 }
 

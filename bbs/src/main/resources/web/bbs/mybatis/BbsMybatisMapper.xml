@@ -39,7 +39,7 @@ select * from bbs
 <select id="searchByTitle" resultType="BbsData">
 	select * from bbs
 	<where>		
-		<if test = "title != null">
+		<if test = "title != null or title !=''">
 			title like concat('%',#{title},'%') 			 	
 		</if>			
 	</where>
