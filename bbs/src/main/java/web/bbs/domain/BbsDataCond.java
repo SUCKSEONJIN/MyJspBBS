@@ -13,11 +13,12 @@ public class BbsDataCond {
 	private String author;
 	private String searchType; 
 	private String search;
+	private String viewType;
 	
 	@Override
 	public String toString() {
 		
 		return "[ title = "+ getTitle() + " author = " + getAuthor() + 
-				" searchType = " + getSearch() + " search = " + getSearch() + " ]";
+				" searchType = " + getSearchType() + " search = " + getSearch() + " ]";
 	}
 }

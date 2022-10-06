@@ -86,12 +86,12 @@
 			
 	
 <div class="container">		
-	<form:form action="/home/bbs/search" method="post" modelAttribute="bbsDataCond" >
+	<form:form action="/home/bbs/1" method="post" modelAttribute="bbsDataCondFirst" >
 	<div align="right" class="mb-3">
 	<h5 align="left" class="mt-3 mb-3">page <span style="color: blue;">${currentPageNumber}</span>  / ${originalLast}</h5>
 		<form:select path="searchType">
-			<form:option name="title" value="제목"></form:option>
-			<form:option name="author" value="글쓴이"></form:option>			
+			<form:option name="title" value="title">제목</form:option>
+			<form:option name="author" value="author">글쓴이</form:option>			
 		</form:select>
 		<form:input path="search" placeholder="검색어를 입력하세요" ></form:input>
 		<input type="hidden" value ="${currentPageNumber}" name="currentPageNumber"/>
@@ -122,13 +122,15 @@
 			</c:forEach>							
 		</tbody>
 	</table>	
-			<form action="/home/bbs/page" method="post" align="center">		
+			<form action="/home/bbs/page" method="post" align="center" >		
 				<a href="/home/bbs/minusPageJump/${currentPageNumber}" class="mr-3">&lt&lt</a>						
 				<button type="submit" name="previous">이전</button>				
 				<input type="hidden" value="${num}" name="count">
 				<input type="hidden" value="${num + i}" name="pageNum">
 				<input type="hidden" value="${originalLast}" name="originalLast"/>
 				<input type="hidden" value="${currentPageNumber}" name="currentPageNumber"/>
+				<input type = "hidden" name="search" value="${bbsDataCond.search}" />
+				<input type="hidden" name="searchType" value="${bbsDataCond.searchType}"/>
 				<c:forEach var="i"  begin="${pageNumberFirst}" end="${pageNumberLast}">										
 					<c:choose>
 					 <c:when test="${currentPageNumber == i+num}">					 

@@ -77,4 +77,8 @@ public class BbsService {
 	public List<BbsData> searchByTitle(String title){
 		return bbsRepository.searchByTitle(title);
 	}
+	
+	public List<BbsData> searchByAuthor(String author){
+		return bbsRepository.searchByAuthor(author);
+	}
 }

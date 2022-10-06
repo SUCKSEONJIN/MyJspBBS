@@ -125,6 +125,13 @@ public class BbsMysqlRepository implements BbsRepository{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<BbsData> searchByAuthor(String author) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 

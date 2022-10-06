@@ -41,18 +41,43 @@ public class BbsController {
 
 	@RequestMapping("/{currentPageNumber}")
 	public String viewBbs(@PathVariable("currentPageNumber") Integer currentPageNumber,HttpServletRequest request, Model model,								
-				@RequestParam(value="pageJump", required=false) Integer pageJump,
-				@RequestParam(value="searchList", required=false) List<BbsData> searchList) {		
+				@RequestParam(value="pageJump", required=false) Integer pageJump,				
+				@ModelAttribute("bbsDataCondFirst") BbsDataCond bbsDataCondFirst,
+				@ModelAttribute("bbsDataCond") BbsDataCond bbsDataCond,
+				@RequestParam(value="search", required = false) String search,
+				@RequestParam(value="searchType", required = false) String searchType) {		
 		Member member = (Member)request.getAttribute("member");
 		List<BbsData> list;
 		List<BbsData> subList;
-		if(searchList == null) {
-			list = bbsService.bbsDataSum();	
-			log.info("ok list ={} ", list);
+		log.info("bbsDataCond = {}", bbsDataCond.toString() );		
+		log.info("1번 search ={} searchType={}", search, searchType);
+		
+		if(bbsDataCondFirst.getViewType() == null || bbsDataCondFirst.getViewType().equals("title")) {
+			
+			if(bbsDataCondFirst.getSearch() != null || bbsDataCond.getSearchType() != null) {
+				bbsDataCond.setSearch(bbsDataCondFirst.getSearch());
+				bbsDataCond.setSearchType(bbsDataCondFirst.getSearchType());
+			}
+			
+			if(search != null || searchType != null) {
+				bbsDataCond.setSearch(search);
+				bbsDataCond.setSearchType(searchType);
+			}
+			
+			log.info("2번 search ={} searchType={}", search, searchType);
+			if(bbsDataCond.getSearchType() == null || bbsDataCond.getSearch().equals("")) {
+				list = bbsService.bbsDataSum();
+			}else if(bbsDataCond.getSearchType().equals("author")) {
+				list = bbsService.searchByAuthor(bbsDataCond.getSearch());
+			}	
+			else {
+				list =	bbsService.searchByTitle(bbsDataCond.getSearch());	
+			}
+				
 		}else {
-			list = searchList;
-			log.info("값들어옴");
+			list = bbsService.bbsDataSum();
 		}
+		
 		//list = bbsService.bbsDataSum();
 		int size = list.size();
 	
@@ -110,8 +135,8 @@ public class BbsController {
 		model.addAttribute("pageNumberLast",pageNumberLast);
 		model.addAttribute("originalLast", originalNumberLast);
 		model.addAttribute("pageNumberFirst", pageNumberFirst);
-		BbsDataCond bbsDataCond = new BbsDataCond();
-		model.addAttribute("bbsDataCond", bbsDataCond);
+				
+		
 		
 		return "bbs";
 	}
@@ -193,7 +218,8 @@ public class BbsController {
 	public String sendStat(@RequestParam(value="count", required=false) Integer count,Model model,@RequestParam(value="pageNum", required=false) Integer pageNum,
 			@RequestParam(value="currentPageNumber", required = false) Integer currentPageNumber,RedirectAttributes redirect,
 			@RequestParam(value="paramPageNumberLast", required = false) Integer paramPageNumberLast,
-			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst
+			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst,
+			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataCond
 			) {
 		log.info("rest값 ={}",pageNum);
 		if(pageNum > 0) {
@@ -206,6 +232,8 @@ public class BbsController {
 		if(currentPageNumber > 1) minus = -1;else {minus=0;} 						
 		redirect.addAttribute("currentPageNumber", currentPageNumber+minus);
 		redirect.addAttribute("paramPageNumberLast",paramPageNumberLast);
+		redirect.addAttribute("search", bbsDataCond.getSearch());
+		redirect.addAttribute("searchType", bbsDataCond.getSearchType());
 		return "redirect:/home/bbs/{currentPageNumber}";// pageNumber값 아직 받지 못했음.
 	}
 	
@@ -214,7 +242,8 @@ public class BbsController {
 			RedirectAttributes redirect, @RequestParam(value="originalLast", required=false)Integer originalLast,
 			@RequestParam(value="pageNum", required=false) Integer pageNum,@RequestParam(value="currentPageNumber", required=false) Integer currentPageNumber,
 			@RequestParam(value="paramPageNumberLast", required = false) Integer paramPageNumberLast,
-			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst
+			@RequestParam(value="paramPageNumberFirst", required = false) Integer paramPageNumberFirst,
+			@ModelAttribute("bbsDataCond") BbsDataCond bbsDataCond
 			)
 			 {
 			
@@ -231,6 +260,8 @@ public class BbsController {
 		
 		redirect.addAttribute("paramPageNumberLast",paramPageNumberLast);
 		redirect.addAttribute("currentPageNumber",currentPageNumber+add);
+		redirect.addAttribute("search", bbsDataCond.getSearch());
+		redirect.addAttribute("searchType", bbsDataCond.getSearchType());
 		return "redirect:/home/bbs/{currentPageNumber}";//pgaeNumber값 아직 받지 못했음. 
 	}
 	
@@ -313,7 +344,7 @@ public class BbsController {
 			redirect.addAttribute("searchList",searchList);
 		}
 			redirect.addAttribute("currentPageNumber",currentPageNumber);
-		
+			
 			
 		return "redirect:/home/bbs/{currentPageNumber}";
 	}

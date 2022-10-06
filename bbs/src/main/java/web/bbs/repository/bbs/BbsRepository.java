@@ -12,8 +12,12 @@ public interface BbsRepository {
 	public Long save(BbsData data);
 	public void remove(Long id);
 	public List<BbsData> searchByTitle(String title);	
+	public List<BbsData> searchByAuthor(String author);
 	public void update(Long id, BbsData_update bbsData);
 	public List<BbsData> findAll(BbsData bbsData);
 	public Optional<BbsData> findById(Long id);
+	
+	
 	public void updateViews(Long id, Integer views);
+	
 }

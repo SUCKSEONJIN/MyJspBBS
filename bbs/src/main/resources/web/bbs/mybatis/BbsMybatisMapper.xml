@@ -45,9 +45,18 @@ select * from bbs
 	</where>
 </select>
 
+<select id="searchByAuthor" resultType="BbsData">
+	select * from bbs
+	<where>
+		<if test="author != null">
+			author like concat("%",#{author},"%")
+		</if>
+	</where>
+</select>
+
 
 <select id="findAll" resultType="BbsData">
-	select * from bbs
+	select * from bbs 
 		
 </select>
 

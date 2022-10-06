@@ -51,11 +51,17 @@ public class MybatisBbsRepository implements BbsRepository{
 	public Optional<BbsData> findById(Long id) {
 		return mapper.findById(id);
 		
-	}
+	}	
 	
 	public void updateViews(Long id , Integer views) {
 		mapper.updateViews(id, views);
 	}
-	
 
+	@Override
+	public List<BbsData> searchByAuthor(String author) {
+		return mapper.searchByAuthor(author);
+		
+	}
+	
+	
 }
