@@ -83,7 +83,11 @@
 			 }
 		</script>
 
-<form:form action="/home/memberInfo" method="Post" modelAttribute="member">
+<form:form action="/home/memberInfo" method="Post" modelAttribute="member" >
+<div style="width:50%" class= "mx-auto">
+<div align="center">
+	<h1>Member Info</h1>
+</div>
 	<div class="form-group">
 		<form:label path="name">Name : </form:label><form:input class="form-control" path="name" disabled="true" value="${member.name}"></form:input>
 		<form:errors path= "name" cssStyle="color:red"/>
@@ -103,12 +107,10 @@
 	<div class="form-group">
 		<form:label path="email">email : </form:label><form:input path="email" class="form-control" placeholder="${email}" ></form:input>
 		<form:errors path="email" cssStyle="color:red"/>
-	
-		
 	</div>
 		<button class="btn btn-primary float-right ml-2" name="home">취소</button>
 		<button class="btn btn-primary float-right" onclick="modificationComplete" name="modification">수정</button>
-	<div>
+	
 	
 	</div>
 
