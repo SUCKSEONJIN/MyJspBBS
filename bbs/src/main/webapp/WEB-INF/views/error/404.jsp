@@ -38,7 +38,7 @@ body{
 	<div class = "container" style = "max-with: 600px;">
 		
 		<div  class="flex-container">											
-			<p><br><span style="font-weight: bold; font-size: 100px">400</span><br> 페이지를 찾을 수 없습니다.</p>			
+			<p><br><span style="font-weight: bold; font-size: 100px">404</span><br> 페이지를 찾을 수 없습니다.</p>			
 		</div>
 	</div>
 
