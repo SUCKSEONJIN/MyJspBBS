@@ -81,4 +81,6 @@ public class BbsService {
 	public List<BbsData> searchByAuthor(String author){
 		return bbsRepository.searchByAuthor(author);
 	}
+	
+	
 }

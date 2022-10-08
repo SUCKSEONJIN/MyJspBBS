@@ -1,5 +1,4 @@
 package web.bbs.controller;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -26,19 +25,16 @@ import web.bbs.service.LoginService;
 @RequiredArgsConstructor
 @RequestMapping("/home/login")
 public class LoginController {
-
 	private final LoginService loginService;
-	
 	@GetMapping("/form")
 	public String loginform(@ModelAttribute("member") MemberLoginDTO member, Model model, HttpServletRequest request) {
 		model.addAttribute("member", new MemberLoginDTO());
 		StringBuffer requestURL = request.getRequestURL();
 		String queryString = request.getQueryString();
-		
+	
 		if(queryString != null) {
 			int index = queryString.indexOf("=");
-			String substring = queryString.substring(index+2);		
-			log.info("subString = {}",substring);
+			String substring = queryString.substring(index+2);					
 			model.addAttribute("url",substring);								
 		}else {
 			model.addAttribute("url",queryString);
@@ -54,31 +50,21 @@ public class LoginController {
 			log.error("error 발생");
 			return "login";
 		}
-				
-		log.info("session값 = {}", request.getSession());		
+							
 		Member passedMember = loginService.loginProcess(request, response, member);
 		if(passedMember == null) {
 			bindingResult.reject("loginFail","아이디 또는 비밀번호가 맞지 않습니다.");
 			return "login";
-		}
-		
-		log.info("session값 = {}", request.getSession());
-		log.info("after loginservice");
+		}			
 		
 		alert = true;
 		redirect.addFlashAttribute("check", alert);
-		redirect.addFlashAttribute("member1",passedMember);
-		
-		
+		redirect.addFlashAttribute("member1",passedMember);				
 		String url = request.getQueryString();		
 		int index = url.indexOf("=");
-		String subString = url.substring(index +1);
-		log.info("url2 ={} , subString={}",url,subString);
-		if(url != null) {return "redirect:/" + subString;}
-		
+		String subString = url.substring(index +1);		
+		if(url != null) {return "redirect:/" + subString;}		
 		return "redirect:/";
-		
 	}
 	
-
 }
